@@ -3,15 +3,18 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  body {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    -webkit-tap-highlight-color: transparent;
     font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
 
 /* Custom scrollbars for Light & Dark mode */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.03);
