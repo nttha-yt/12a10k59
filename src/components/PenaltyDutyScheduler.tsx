@@ -370,33 +370,33 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
       </div>
 
       {/* Sơ đồ lớp học (Seating Chart) */}
-      <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm mt-8 transition-colors duration-200">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-5 gap-2">
+      <div className="bg-white dark:bg-slate-900/95 rounded-3xl p-5 sm:p-7 border border-slate-200/80 dark:border-slate-800 shadow-sm mt-8 transition-colors duration-200">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
-            <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              Sơ Đồ Chỗ Ngồi Lớp 12A10 (Hỗ trợ phân công trực nhật)
+            <h3 className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
+              <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              Sơ Đồ Chỗ Ngồi Lớp 12A10
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Mỗi bàn gồm 2 vị trí ngồi (Trái & Phải) nhìn từ bục giảng xuống
+              Mỗi bàn gồm 2 vị trí (Trái & Phải) nhìn từ bục giảng xuống • Hỗ trợ theo dõi nề nếp và phân công trực nhật
             </p>
           </div>
           {currentRole === 'gvcn' && (
             isEditingSeating ? (
               <div className="flex gap-2">
-                <button onClick={() => { setIsEditingSeating(false); setSeatingChartState(settings?.seatingChart || {}); }} className="px-3.5 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl cursor-pointer transition-colors">Hủy</button>
-                <button onClick={handleSaveSeating} className="px-4 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl cursor-pointer transition-colors shadow-xs">Lưu sơ đồ</button>
+                <button onClick={() => { setIsEditingSeating(false); setSeatingChartState(settings?.seatingChart || {}); }} className="px-4 py-2 text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl cursor-pointer transition-colors">Hủy</button>
+                <button onClick={handleSaveSeating} className="px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl cursor-pointer transition-colors shadow-md shadow-blue-500/20">Lưu sơ đồ</button>
               </div>
             ) : (
-              <button onClick={() => setIsEditingSeating(true)} className="px-3.5 py-1.5 text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 rounded-xl flex items-center gap-1.5 cursor-pointer transition-colors">
-                <Edit3 className="w-3.5 h-3.5" />
+              <button onClick={() => setIsEditingSeating(true)} className="px-4 py-2 text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/70 hover:bg-blue-100 dark:hover:bg-blue-900/80 border border-blue-200 dark:border-blue-800 rounded-xl flex items-center gap-1.5 cursor-pointer transition-colors shadow-2xs">
+                <Edit3 className="w-4 h-4" />
                 Cập nhật sơ đồ
               </button>
             )
           )}
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
           {[1, 2, 3, 4].map(groupNum => {
             const isDutyGroup = groupNum === mainDutyGroupCurrent;
             const groupDesks = seatingChartState[String(groupNum)] || [];
@@ -406,29 +406,54 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
               3: 'Nguyễn Triệu Huy',
               4: 'Phạm Thu Hương',
             };
+            const leaderName = groupLeaders[groupNum];
 
             return (
-              <div key={groupNum} className={`border-2 rounded-2xl p-4 sm:p-4.5 transition-all flex flex-col justify-between ${isDutyGroup ? 'border-blue-500/80 dark:border-blue-400/80 bg-blue-50/20 dark:bg-blue-950/20 shadow-sm' : 'border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-850/60'}`}>
+              <div 
+                key={groupNum} 
+                className={`rounded-3xl p-4 sm:p-5 transition-all flex flex-col justify-between ${
+                  isDutyGroup 
+                    ? 'bg-gradient-to-b from-blue-50/90 via-indigo-50/30 to-white dark:from-blue-950/70 dark:via-slate-900 dark:to-slate-900 border-2 border-blue-500 dark:border-blue-400 shadow-xl shadow-blue-500/15 ring-2 ring-blue-400/30' 
+                    : 'bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700'
+                }`}
+              >
                 <div>
-                  <div className={`pb-3 mb-3 border-b flex items-center justify-between gap-2 ${isDutyGroup ? 'border-blue-200 dark:border-blue-900/80' : 'border-slate-200 dark:border-slate-800'}`}>
-                    <div className="flex items-center gap-2">
-                      <span className={`w-7 h-7 rounded-lg font-black text-xs flex items-center justify-center ${isDutyGroup ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200'}`}>
-                        T{groupNum}
-                      </span>
-                      <div>
-                        <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm leading-tight">
+                  {/* Group Header Card */}
+                  <div className={`pb-3.5 mb-3.5 border-b space-y-2.5 ${isDutyGroup ? 'border-blue-200 dark:border-blue-900/80' : 'border-slate-100 dark:border-slate-800'}`}>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-8 h-8 rounded-xl font-black text-sm flex items-center justify-center ${
+                          isDutyGroup 
+                            ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30' 
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700'
+                        }`}>
+                          T{groupNum}
+                        </span>
+                        <h4 className="font-extrabold text-slate-900 dark:text-slate-100 text-base">
                           DÃY TỔ {groupNum}
                         </h4>
-                        <span className="text-[10px] text-blue-600 dark:text-blue-400 font-medium">Tổ trưởng: {groupLeaders[groupNum]}</span>
                       </div>
+
+                      {isDutyGroup && (
+                        <span className="text-[11px] bg-gradient-to-r from-amber-500 to-amber-600 text-white px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider shadow-sm flex items-center gap-1 shrink-0 animate-pulse">
+                          ✨ Trực Tuần {currentWeek}
+                        </span>
+                      )}
                     </div>
-                    {isDutyGroup && (
-                      <span className="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold shadow-2xs">
-                        Trực Tuần Này
-                      </span>
-                    )}
+
+                    {/* Tổ trưởng badge - High contrast & prominent */}
+                    <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold ${
+                      isDutyGroup
+                        ? 'bg-blue-600/10 dark:bg-blue-900/50 border-blue-300/80 dark:border-blue-700 text-blue-900 dark:text-blue-200'
+                        : 'bg-slate-50 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200'
+                    }`}>
+                      <span className="text-amber-500">👑</span>
+                      <span>Tổ trưởng:</span>
+                      <span className="font-extrabold text-blue-700 dark:text-blue-300 truncate">{leaderName}</span>
+                    </div>
                   </div>
 
+                  {/* 6 Desks Container */}
                   <div className="space-y-2">
                     {isEditingSeating ? (
                       // Edit mode: 3 horizontal columns (Compact Desk + Left Input + Right Input)
@@ -436,7 +461,7 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
                         const existingDesk = groupDesks.find(d => d.deskNumber === deskIndex) || { deskNumber: deskIndex, leftStudent: '', rightStudent: '' };
                         return (
                           <div key={deskIndex} className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1.5 rounded-xl shadow-2xs border border-slate-200 dark:border-slate-700">
-                            <span className="w-12 shrink-0 text-center py-1 rounded-lg text-[10px] font-black bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                            <span className="w-13 shrink-0 text-center py-1.5 rounded-lg text-[11px] font-black bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                               Bàn {deskIndex}
                             </span>
                             <div className="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
@@ -451,7 +476,7 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
                                   else newDesks.push({ deskNumber: deskIndex, leftStudent: e.target.value, rightStudent: existingDesk.rightStudent });
                                   setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
                                 }}
-                                className="w-full text-xs font-medium p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="w-full text-xs font-semibold p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
                               />
                               <input 
                                 type="text" 
@@ -464,59 +489,69 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
                                   else newDesks.push({ deskNumber: deskIndex, leftStudent: existingDesk.leftStudent, rightStudent: e.target.value });
                                   setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
                                 }}
-                                className="w-full text-xs font-medium p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="w-full text-xs font-semibold p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
                               />
                             </div>
                           </div>
                         );
                       })
                     ) : (
-                      // Display mode: 3 horizontal columns with ample space for full student names
-                      groupDesks.length > 0 ? (
-                        [1, 2, 3, 4, 5, 6].map(deskIndex => {
-                          const desk = groupDesks.find(d => d.deskNumber === deskIndex);
-                          if (!desk || (!desk.leftStudent && !desk.rightStudent)) return null;
-                          return (
-                            <div 
-                              key={deskIndex} 
-                              className={`flex items-center gap-1.5 p-1.5 rounded-xl bg-white dark:bg-slate-800 border shadow-2xs transition-all ${
-                                isDutyGroup 
-                                  ? 'border-blue-200/90 dark:border-blue-900/80 hover:border-blue-400 dark:hover:border-blue-700' 
-                                  : 'border-slate-200/80 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600'
-                              }`}
-                            >
-                              {/* Compact Desk Badge */}
-                              <span className={`w-12 shrink-0 text-center py-1 rounded-lg text-[10px] font-black ${
-                                isDutyGroup 
-                                  ? 'bg-blue-600 text-white shadow-2xs' 
-                                  : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
-                              }`}>
-                                Bàn {deskIndex}
-                              </span>
+                      // Display mode: always show 6 desks consistently
+                      [1, 2, 3, 4, 5, 6].map(deskIndex => {
+                        const desk = groupDesks.find(d => d.deskNumber === deskIndex);
+                        const hasLeft = Boolean(desk?.leftStudent);
+                        const hasRight = Boolean(desk?.rightStudent);
+                        const hasAny = hasLeft || hasRight;
 
-                              {/* 2 Equal Horizontal Slots for Student Names */}
-                              <div className="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
-                                <div 
-                                  className="px-2 py-1 rounded-lg bg-slate-50 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 truncate text-center"
-                                  title={desk.leftStudent || '-'}
-                                >
-                                  {desk.leftStudent || '-'}
-                                </div>
-                                <div 
-                                  className="px-2 py-1 rounded-lg bg-slate-50 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 truncate text-center"
-                                  title={desk.rightStudent || '-'}
-                                >
-                                  {desk.rightStudent || '-'}
-                                </div>
+                        return (
+                          <div 
+                            key={deskIndex} 
+                            className={`flex items-center gap-1.5 p-1.5 sm:p-2 rounded-2xl border shadow-2xs transition-all ${
+                              isDutyGroup 
+                                ? 'bg-white dark:bg-slate-800/90 border-blue-200/90 dark:border-blue-900/80 hover:border-blue-400 dark:hover:border-blue-600' 
+                                : 'bg-slate-50/90 dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-700/70 hover:border-slate-300 dark:hover:border-slate-600'
+                            }`}
+                          >
+                            {/* Compact Desk Badge */}
+                            <span className={`w-13 shrink-0 text-center py-1.5 rounded-xl text-[11px] font-black ${
+                              isDutyGroup 
+                                ? 'bg-blue-600 text-white shadow-xs' 
+                                : 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200'
+                            }`}>
+                              Bàn {deskIndex}
+                            </span>
+
+                            {/* 2 Equal Horizontal Slots for Student Names */}
+                            <div className="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
+                              <div 
+                                className={`px-2 py-1.5 rounded-xl text-xs font-bold text-center truncate ${
+                                  hasLeft 
+                                    ? isDutyGroup 
+                                      ? 'bg-blue-50/70 dark:bg-slate-900/90 border border-blue-100 dark:border-blue-900/60 text-slate-900 dark:text-slate-100'
+                                      : 'bg-white dark:bg-slate-900/90 border border-slate-200/60 dark:border-slate-800 text-slate-900 dark:text-slate-100'
+                                    : 'border border-dashed border-slate-200 dark:border-slate-700/60 text-slate-400 dark:text-slate-500 font-normal italic'
+                                }`}
+                                title={desk?.leftStudent || 'Chưa xếp'}
+                              >
+                                {desk?.leftStudent || '—'}
+                              </div>
+
+                              <div 
+                                className={`px-2 py-1.5 rounded-xl text-xs font-bold text-center truncate ${
+                                  hasRight 
+                                    ? isDutyGroup 
+                                      ? 'bg-blue-50/70 dark:bg-slate-900/90 border border-blue-100 dark:border-blue-900/60 text-slate-900 dark:text-slate-100'
+                                      : 'bg-white dark:bg-slate-900/90 border border-slate-200/60 dark:border-slate-800 text-slate-900 dark:text-slate-100'
+                                    : 'border border-dashed border-slate-200 dark:border-slate-700/60 text-slate-400 dark:text-slate-500 font-normal italic'
+                                }`}
+                                title={desk?.rightStudent || 'Chưa xếp'}
+                              >
+                                {desk?.rightStudent || '—'}
                               </div>
                             </div>
-                          );
-                        })
-                      ) : (
-                        <div className="text-center text-slate-400 dark:text-slate-500 py-6 italic border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/30 text-xs">
-                          Chưa cập nhật chỗ ngồi
-                        </div>
-                      )
+                          </div>
+                        );
+                      })
                     )}
                   </div>
                 </div>
@@ -524,8 +559,8 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
             );
           })}
         </div>
-        <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center mt-5 font-semibold bg-slate-50 dark:bg-slate-800/50 py-2 rounded-xl border border-slate-100 dark:border-slate-800">
-          🏫 Bảng / Bục Giảng nằm ở phía trên (trước Bàn 1)
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center mt-6 font-semibold bg-slate-50 dark:bg-slate-800/50 py-2.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+          🏫 Bục Giảng & Bảng Đen nằm ở phía trên (phía trước Bàn 1 của các dãy)
         </p>
       </div>
     </div>
