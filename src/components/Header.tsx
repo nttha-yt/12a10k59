@@ -271,15 +271,15 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => onChangeTab('penalties')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'penalties'
-                ? 'bg-amber-500 text-white font-semibold shadow-sm shadow-amber-500/20'
+                ? 'bg-blue-600 text-white font-semibold shadow-sm shadow-blue-500/20'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/60'
             }`}
           >
-            <ShieldAlert className={`w-4 h-4 ${activeTab === 'penalties' ? 'text-white' : 'text-amber-500'}`} />
+            <ShieldAlert className="w-4 h-4" />
             Trực Nhật
             {penaltiesCount > 0 && (
               <span className={`ml-1 text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                activeTab === 'penalties' ? 'bg-white text-amber-600' : 'bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300'
+                activeTab === 'penalties' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
               }`}>
                 {penaltiesCount}
               </span>
