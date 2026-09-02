@@ -365,19 +365,24 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
 
       {/* Sơ đồ lớp học (Seating Chart) */}
       <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm mt-8 transition-colors duration-200">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
-          <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            Sơ Đồ Chỗ Ngồi Lớp 12A10 (Hỗ trợ phân công trực nhật)
-          </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-5 gap-2">
+          <div>
+            <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              Sơ Đồ Chỗ Ngồi Lớp 12A10 (Hỗ trợ phân công trực nhật)
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Mỗi bàn gồm 2 vị trí ngồi (Trái & Phải) nhìn từ bục giảng xuống
+            </p>
+          </div>
           {currentRole === 'gvcn' && (
             isEditingSeating ? (
               <div className="flex gap-2">
-                <button onClick={() => { setIsEditingSeating(false); setSeatingChartState(settings?.seatingChart || {}); }} className="px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">Hủy</button>
-                <button onClick={handleSaveSeating} className="px-3 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg cursor-pointer transition-colors">Lưu sơ đồ</button>
+                <button onClick={() => { setIsEditingSeating(false); setSeatingChartState(settings?.seatingChart || {}); }} className="px-3.5 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl cursor-pointer transition-colors">Hủy</button>
+                <button onClick={handleSaveSeating} className="px-4 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl cursor-pointer transition-colors shadow-xs">Lưu sơ đồ</button>
               </div>
             ) : (
-              <button onClick={() => setIsEditingSeating(true)} className="px-3 py-1.5 text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 rounded-lg flex items-center gap-1 cursor-pointer transition-colors">
+              <button onClick={() => setIsEditingSeating(true)} className="px-3.5 py-1.5 text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 rounded-xl flex items-center gap-1.5 cursor-pointer transition-colors">
                 <Edit3 className="w-3.5 h-3.5" />
                 Cập nhật sơ đồ
               </button>
@@ -385,85 +390,130 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
           )}
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
           {[1, 2, 3, 4].map(groupNum => {
             const isDutyGroup = groupNum === mainDutyGroupCurrent;
             const groupDesks = seatingChartState[String(groupNum)] || [];
 
             return (
-              <div key={groupNum} className={`border-2 rounded-2xl p-4 transition-all ${isDutyGroup ? 'border-blue-500/80 dark:border-blue-400/80 bg-blue-50/20 dark:bg-blue-950/20 shadow-sm' : 'border-slate-200 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-800/40'}`}>
-                <h4 className={`font-bold text-center mb-3 pb-2 border-b flex items-center justify-center gap-2 ${isDutyGroup ? 'text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800' : 'text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'}`}>
-                  TỔ {groupNum} 
-                  {isDutyGroup && <span className="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold shadow-xs">Trực Tuần Này</span>}
-                </h4>
-                <div className="space-y-2 text-xs">
-                  {isEditingSeating ? (
-                    // Edit mode: always show 6 desks
-                    [1, 2, 3, 4, 5, 6].map(deskIndex => {
-                      const existingDesk = groupDesks.find(d => d.deskNumber === deskIndex) || { deskNumber: deskIndex, leftStudent: '', rightStudent: '' };
-                      return (
-                        <div key={deskIndex} className="grid grid-cols-2 gap-2 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-xs border border-slate-100 dark:border-slate-700">
-                          <span className="text-slate-600 dark:text-slate-300 border-r border-slate-100 dark:border-slate-700 pr-1 flex items-center font-semibold text-[11px]">Bàn {deskIndex}</span>
-                          <div className="space-y-1.5">
-                            <input 
-                              type="text" 
-                              placeholder="Trái..."
-                              value={existingDesk.leftStudent}
-                              onChange={(e) => {
-                                const newDesks = [...groupDesks];
-                                const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
-                                if (idx >= 0) newDesks[idx].leftStudent = e.target.value;
-                                else newDesks.push({ deskNumber: deskIndex, leftStudent: e.target.value, rightStudent: existingDesk.rightStudent });
-                                setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
-                              }}
-                              className="w-full text-[11px] p-1.5 border border-slate-200 dark:border-slate-700 rounded-md bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:border-blue-400"
-                            />
-                            <input 
-                              type="text" 
-                              placeholder="Phải..."
-                              value={existingDesk.rightStudent}
-                              onChange={(e) => {
-                                const newDesks = [...groupDesks];
-                                const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
-                                if (idx >= 0) newDesks[idx].rightStudent = e.target.value;
-                                else newDesks.push({ deskNumber: deskIndex, leftStudent: existingDesk.leftStudent, rightStudent: e.target.value });
-                                setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
-                              }}
-                              className="w-full text-[11px] p-1.5 border border-slate-200 dark:border-slate-700 rounded-md bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:border-blue-400"
-                            />
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    // Display mode
-                    groupDesks.length > 0 ? (
+              <div key={groupNum} className={`border-2 rounded-2xl p-4 sm:p-4.5 transition-all flex flex-col justify-between ${isDutyGroup ? 'border-blue-500/80 dark:border-blue-400/80 bg-blue-50/20 dark:bg-blue-950/20 shadow-sm' : 'border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-850/60'}`}>
+                <div>
+                  <div className={`pb-3 mb-3 border-b flex items-center justify-between gap-2 ${isDutyGroup ? 'border-blue-200 dark:border-blue-900/80' : 'border-slate-200 dark:border-slate-800'}`}>
+                    <div className="flex items-center gap-2">
+                      <span className={`w-7 h-7 rounded-lg font-black text-xs flex items-center justify-center ${isDutyGroup ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200'}`}>
+                        T{groupNum}
+                      </span>
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm leading-tight">
+                          DÃY TỔ {groupNum}
+                        </h4>
+                        <span className="text-[10px] text-slate-400 font-medium">(Trái • Phải)</span>
+                      </div>
+                    </div>
+                    {isDutyGroup && (
+                      <span className="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold shadow-2xs">
+                        Trực Tuần Này
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    {isEditingSeating ? (
+                      // Edit mode: 3 horizontal columns (Compact Desk + Left Input + Right Input)
                       [1, 2, 3, 4, 5, 6].map(deskIndex => {
-                        const desk = groupDesks.find(d => d.deskNumber === deskIndex);
-                        if (!desk || (!desk.leftStudent && !desk.rightStudent)) return null;
+                        const existingDesk = groupDesks.find(d => d.deskNumber === deskIndex) || { deskNumber: deskIndex, leftStudent: '', rightStudent: '' };
                         return (
-                          <div key={deskIndex} className={`grid grid-cols-2 gap-2 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-xs border ${isDutyGroup ? 'border-blue-200 dark:border-blue-800' : 'border-slate-100 dark:border-slate-700'}`}>
-                            <span className={`border-r pr-1 flex items-center text-[11px] ${isDutyGroup ? 'text-blue-700 dark:text-blue-300 border-blue-100 dark:border-blue-900/60' : 'text-slate-600 dark:text-slate-400 border-slate-100 dark:border-slate-700'}`}>Bàn {deskIndex}</span>
-                            <div>
-                              <div className="font-semibold text-slate-800 dark:text-slate-200">{desk.leftStudent || '-'}</div>
-                              <div className="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{desk.rightStudent || '-'}</div>
+                          <div key={deskIndex} className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1.5 rounded-xl shadow-2xs border border-slate-200 dark:border-slate-700">
+                            <span className="w-12 shrink-0 text-center py-1 rounded-lg text-[10px] font-black bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                              Bàn {deskIndex}
+                            </span>
+                            <div className="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
+                              <input 
+                                type="text" 
+                                placeholder="HS Trái..."
+                                value={existingDesk.leftStudent}
+                                onChange={(e) => {
+                                  const newDesks = [...groupDesks];
+                                  const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
+                                  if (idx >= 0) newDesks[idx].leftStudent = e.target.value;
+                                  else newDesks.push({ deskNumber: deskIndex, leftStudent: e.target.value, rightStudent: existingDesk.rightStudent });
+                                  setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
+                                }}
+                                className="w-full text-xs font-medium p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                              />
+                              <input 
+                                type="text" 
+                                placeholder="HS Phải..."
+                                value={existingDesk.rightStudent}
+                                onChange={(e) => {
+                                  const newDesks = [...groupDesks];
+                                  const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
+                                  if (idx >= 0) newDesks[idx].rightStudent = e.target.value;
+                                  else newDesks.push({ deskNumber: deskIndex, leftStudent: existingDesk.leftStudent, rightStudent: e.target.value });
+                                  setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
+                                }}
+                                className="w-full text-xs font-medium p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                              />
                             </div>
                           </div>
                         );
                       })
                     ) : (
-                      <div className="text-center text-slate-400 dark:text-slate-500 py-4 italic border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800/30">
-                        Chưa cập nhật chỗ ngồi
-                      </div>
-                    )
-                  )}
+                      // Display mode: 3 horizontal columns with ample space for full student names
+                      groupDesks.length > 0 ? (
+                        [1, 2, 3, 4, 5, 6].map(deskIndex => {
+                          const desk = groupDesks.find(d => d.deskNumber === deskIndex);
+                          if (!desk || (!desk.leftStudent && !desk.rightStudent)) return null;
+                          return (
+                            <div 
+                              key={deskIndex} 
+                              className={`flex items-center gap-1.5 p-1.5 rounded-xl bg-white dark:bg-slate-800 border shadow-2xs transition-all ${
+                                isDutyGroup 
+                                  ? 'border-blue-200/90 dark:border-blue-900/80 hover:border-blue-400 dark:hover:border-blue-700' 
+                                  : 'border-slate-200/80 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600'
+                              }`}
+                            >
+                              {/* Compact Desk Badge */}
+                              <span className={`w-12 shrink-0 text-center py-1 rounded-lg text-[10px] font-black ${
+                                isDutyGroup 
+                                  ? 'bg-blue-600 text-white shadow-2xs' 
+                                  : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                              }`}>
+                                Bàn {deskIndex}
+                              </span>
+
+                              {/* 2 Equal Horizontal Slots for Student Names */}
+                              <div className="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
+                                <div 
+                                  className="px-2 py-1 rounded-lg bg-slate-50 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 truncate text-center"
+                                  title={desk.leftStudent || '-'}
+                                >
+                                  {desk.leftStudent || '-'}
+                                </div>
+                                <div 
+                                  className="px-2 py-1 rounded-lg bg-slate-50 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 truncate text-center"
+                                  title={desk.rightStudent || '-'}
+                                >
+                                  {desk.rightStudent || '-'}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <div className="text-center text-slate-400 dark:text-slate-500 py-6 italic border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/30 text-xs">
+                          Chưa cập nhật chỗ ngồi
+                        </div>
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
-        <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center mt-5 font-semibold bg-slate-50 dark:bg-slate-800/50 py-2 rounded-lg border border-slate-100 dark:border-slate-800">
-          Bảng / Bục Giảng nằm ở phía trên (trước Bàn 1)
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center mt-5 font-semibold bg-slate-50 dark:bg-slate-800/50 py-2 rounded-xl border border-slate-100 dark:border-slate-800">
+          🏫 Bảng / Bục Giảng nằm ở phía trên (trước Bàn 1)
         </p>
       </div>
     </div>
