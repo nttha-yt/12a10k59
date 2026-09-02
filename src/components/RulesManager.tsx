@@ -9,13 +9,9 @@ import {
   BookOpen, 
   Plus, 
   Search, 
-  CheckCircle, 
-  AlertTriangle, 
   Trash2, 
   Edit, 
-  Sparkles,
-  Shield,
-  Layers
+  Shield
 } from 'lucide-react';
 
 interface RulesManagerProps {
@@ -97,13 +93,13 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
     <div className="space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors duration-200">
         <div>
-          <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-            <BookOpen className="w-6 h-6 text-blue-600" />
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             Quy Chế Thi Đua & Bảng Điểm Chuẩn 12A10
           </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Quy định nề nếp, học tập, vệ sinh và phong trào chuẩn hóa THPT Yên Thế (2026-2027)
           </p>
         </div>
@@ -176,16 +172,16 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
 
       {/* Add New Rule Form (collapsible) */}
       {isAddingRule && (
-        <form onSubmit={handleCreateOrEditRule} className="bg-blue-50/60 rounded-3xl p-6 border border-blue-200 shadow-sm space-y-4 animate-in fade-in duration-200">
-          <div className="flex items-center justify-between pb-2 border-b border-blue-200">
-            <h3 className="font-extrabold text-blue-900 text-base flex items-center gap-2">
-              {editingRuleId ? <Edit className="w-5 h-5 text-amber-600" /> : <Plus className="w-5 h-5 text-blue-600" />}
+        <form onSubmit={handleCreateOrEditRule} className="bg-blue-50/60 dark:bg-slate-800/80 rounded-3xl p-6 border border-blue-200 dark:border-slate-700 shadow-sm space-y-4 animate-in fade-in duration-200 transition-colors">
+          <div className="flex items-center justify-between pb-2 border-b border-blue-200 dark:border-slate-700">
+            <h3 className="font-extrabold text-blue-900 dark:text-blue-300 text-base flex items-center gap-2">
+              {editingRuleId ? <Edit className="w-5 h-5 text-amber-600 dark:text-amber-400" /> : <Plus className="w-5 h-5 text-blue-600 dark:text-blue-400" />}
               {editingRuleId ? 'Chỉnh Sửa Tiêu Chí / Nội Quy' : 'Thêm Tiêu Chí / Nội Quy Mới'}
             </h3>
             <button
               type="button"
               onClick={resetForm}
-              className="text-xs text-slate-500 hover:text-slate-800 font-bold cursor-pointer"
+              className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-bold cursor-pointer"
             >
               Đóng
             </button>
@@ -193,51 +189,51 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Tên Tiêu Chí (*)</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Tên Tiêu Chí (*)</label>
               <input
                 type="text"
                 required
                 placeholder="VD: Không mang thẻ học sinh, Đạt giải HSG tỉnh..."
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Danh Mục</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Danh Mục</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as CriterionCategory)}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer"
               >
-                <option value="ne_nep">🚫 Nề nếp (Kỷ luật, đồng phục, chuyên cần)</option>
-                <option value="hoc_tap">📚 Học tập (Kiểm tra, bài tập, phát biểu)</option>
-                <option value="ve_sinh">🧹 Vệ sinh (Trực nhật, bàn ghế, rác thải)</option>
-                <option value="phong_trao">⭐ Phong trào (Văn nghệ, thể thao, đoàn thể)</option>
+                <option value="ne_nep" className="dark:bg-slate-800">🚫 Nề nếp (Kỷ luật, đồng phục, chuyên cần)</option>
+                <option value="hoc_tap" className="dark:bg-slate-800">📚 Học tập (Kiểm tra, bài tập, phát biểu)</option>
+                <option value="ve_sinh" className="dark:bg-slate-800">🧹 Vệ sinh (Trực nhật, bàn ghế, rác thải)</option>
+                <option value="phong_trao" className="dark:bg-slate-800">⭐ Phong trào (Văn nghệ, thể thao, đoàn thể)</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Điểm Cộng / Trừ (*)</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Điểm Cộng / Trừ (*)</label>
               <input
                 type="number"
                 required
                 value={points}
                 onChange={(e) => setPoints(Number(e.target.value))}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1">Mô Tả & Hướng Dẫn Xử Lý</label>
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Mô Tả & Hướng Dẫn Xử Lý</label>
             <input
               type="text"
               placeholder="VD: Trừ vào điểm thi đua tuần, nhắc nhở trước cờ..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
@@ -245,13 +241,13 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
             <button
               type="button"
               onClick={resetForm}
-              className="px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-xl cursor-pointer hover:bg-slate-300 transition-colors"
+              className="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-xl cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
             >
               Hủy
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-sm cursor-pointer transition-colors"
+              className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer transition-colors"
             >
               {editingRuleId ? 'Cập Nhật Tiêu Chí' : 'Lưu Tiêu Chí'}
             </button>
@@ -260,7 +256,7 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
       )}
 
       {/* Category Filter & Search Bar */}
-      <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+      <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 transition-colors duration-200">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
           {[
             { id: 'all', label: 'Tất cả quy chế' },
@@ -275,7 +271,7 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat.id
                   ? 'bg-blue-600 text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
             >
               {cat.label}
@@ -290,7 +286,7 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
             placeholder="Tìm kiếm nội quy..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-9 pr-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
@@ -303,37 +299,39 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
           return (
             <div
               key={rule.id}
-              className={`bg-white rounded-2xl p-4 border shadow-sm flex flex-col justify-between space-y-3 transition-all ${
-                isBonus ? 'border-emerald-200 bg-emerald-50/10' : 'border-rose-100 bg-rose-50/10'
+              className={`bg-white dark:bg-slate-900/90 rounded-2xl p-4 border shadow-sm flex flex-col justify-between space-y-3 transition-all ${
+                isBonus 
+                  ? 'border-emerald-200 dark:border-emerald-800/60 bg-emerald-50/10 dark:bg-emerald-950/20' 
+                  : 'border-rose-100 dark:border-rose-900/60 bg-rose-50/10 dark:bg-rose-950/20'
               }`}
             >
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${
-                    rule.category === 'ne_nep' ? 'bg-amber-100 text-amber-800' :
-                    rule.category === 'hoc_tap' ? 'bg-blue-100 text-blue-800' :
-                    rule.category === 've_sinh' ? 'bg-purple-100 text-purple-800' : 'bg-emerald-100 text-emerald-800'
+                    rule.category === 'ne_nep' ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-transparent dark:border-amber-800' :
+                    rule.category === 'hoc_tap' ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-transparent dark:border-blue-800' :
+                    rule.category === 've_sinh' ? 'bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 border border-transparent dark:border-purple-800' : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-transparent dark:border-emerald-800'
                   }`}>
                     {rule.category === 'ne_nep' ? 'Nề nếp' : rule.category === 'hoc_tap' ? 'Học tập' : rule.category === 've_sinh' ? 'Vệ sinh' : 'Phong trào'}
                   </span>
 
                   <span className={`text-sm font-black px-2.5 py-0.5 rounded-xl ${
-                    isBonus ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                    isBonus ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300'
                   }`}>
                     {isBonus ? `+${rule.points}` : rule.points} đ
                   </span>
                 </div>
 
-                <h4 className="font-bold text-slate-900 text-sm">{rule.name}</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">{rule.description}</p>
+                <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm">{rule.name}</h4>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{rule.description}</p>
               </div>
 
               {(currentRole === 'gvcn' || currentRole === 'lop_truong') && (
-                <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <button
                     onClick={() => handleOpenEdit(rule)}
                     title="Sửa tiêu chí này"
-                    className="p-1 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors cursor-pointer text-xs flex items-center gap-1"
+                    className="p-1 rounded-lg text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/60 transition-colors cursor-pointer text-xs flex items-center gap-1"
                   >
                     <Edit className="w-3.5 h-3.5" />
                     <span>Sửa</span>
@@ -345,7 +343,7 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
                       }
                     }}
                     title="Xóa tiêu chí này"
-                    className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer text-xs flex items-center gap-1"
+                    className="p-1 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/60 transition-colors cursor-pointer text-xs flex items-center gap-1"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>Xóa</span>
@@ -359,3 +357,5 @@ export const RulesManager: React.FC<RulesManagerProps> = ({
     </div>
   );
 };
+
+export default RulesManager;

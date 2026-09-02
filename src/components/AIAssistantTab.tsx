@@ -9,7 +9,7 @@ import { StudentScoreSummary, GroupScoreSummary } from '../utils/calculations';
 import { 
   generateWeeklyEvaluationReport, 
   generateStudentRecoveryPlan, 
-  generateAIQuizQuestions,
+  generateAIQuizQuestions, 
   generateParentAlerts,
   callGeminiAI 
 } from '../services/geminiService';
@@ -22,7 +22,6 @@ import {
   Copy, 
   Check, 
   Loader2, 
-  HelpCircle, 
   CheckCircle2, 
   XCircle, 
   RotateCcw,
@@ -59,7 +58,7 @@ export const AIAssistantTab: React.FC<AIAssistantTabProps> = ({
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<'weekly_report' | 'recovery_plan' | 'chat_advisor' | 'smart_quiz' | 'agent_alerts'>('agent_alerts');
   
-  // High Thinking Mode Toggle (MUST use gemini-3.1-pro-preview with ThinkingLevel.HIGH)
+  // High Thinking Mode Toggle
   const [highThinkingMode, setHighThinkingMode] = useState(true);
 
   // SubTab 1: Weekly Report
@@ -309,13 +308,13 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
       </div>
 
       {/* Sub navigation tabs */}
-      <div className="flex bg-white rounded-2xl p-1.5 border border-slate-200/80 shadow-sm overflow-x-auto gap-1 text-xs sm:text-sm font-bold">
+      <div className="flex bg-white dark:bg-slate-900/90 rounded-2xl p-1.5 border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-x-auto gap-1 text-xs sm:text-sm font-bold transition-colors duration-200">
         <button
           onClick={() => setActiveSubTab('weekly_report')}
           className={`px-4 py-2.5 rounded-xl whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeSubTab === 'weekly_report'
               ? 'bg-purple-600 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <FileText className="w-4 h-4" />
@@ -327,7 +326,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           className={`px-4 py-2.5 rounded-xl whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeSubTab === 'recovery_plan'
               ? 'bg-purple-600 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <Zap className="w-4 h-4" />
@@ -339,7 +338,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           className={`px-4 py-2.5 rounded-xl whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeSubTab === 'agent_alerts'
               ? 'bg-purple-600 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <Megaphone className="w-4 h-4" />
@@ -351,7 +350,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           className={`px-4 py-2.5 rounded-xl whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeSubTab === 'chat_advisor'
               ? 'bg-purple-600 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <MessageSquare className="w-4 h-4" />
@@ -363,7 +362,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           className={`px-4 py-2.5 rounded-xl whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeSubTab === 'smart_quiz'
               ? 'bg-purple-600 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -373,14 +372,14 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
 
       {/* ================= TAB 1: WEEKLY REPORT ================= */}
       {activeSubTab === 'weekly_report' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6 transition-colors duration-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="font-extrabold text-slate-900 text-lg sm:text-xl flex items-center gap-2">
-                <FileText className="w-5 h-5 text-purple-600" />
+              <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-lg sm:text-xl flex items-center gap-2">
+                <FileText className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 Báo Cáo Đánh Giá Thi Đua & Nề Nếp Tuần {currentWeek}
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Tự động tổng hợp số liệu 4 tổ, phân tích điểm sáng, tồn tại và phổ biến danh sách trực nhật phạt cho tiết Sinh hoạt lớp.
               </p>
             </div>
@@ -407,7 +406,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           {weeklyReport ? (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Nội dung báo cáo chi tiết:
                 </span>
                 <button
@@ -416,29 +415,29 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                     setCopiedReport(true);
                     setTimeout(() => setCopiedReport(false), 2000);
                   }}
-                  className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs flex items-center gap-1.5 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs flex items-center gap-1.5 cursor-pointer border border-transparent dark:border-slate-700"
                 >
                   {copiedReport ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   {copiedReport ? 'Đã sao chép!' : 'Sao chép nội dung'}
                 </button>
               </div>
 
-              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 text-slate-800 text-sm leading-relaxed whitespace-pre-wrap font-sans space-y-2">
+              <div className="p-6 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-sm leading-relaxed whitespace-pre-wrap font-sans space-y-2">
                 {weeklyReport}
               </div>
             </div>
           ) : errorWeeklyReport ? (
-            <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl">
-              <h4 className="font-bold text-rose-700 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
-              <p className="text-xs text-rose-600 font-mono">{errorWeeklyReport}</p>
+            <div className="p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl">
+              <h4 className="font-bold text-rose-700 dark:text-rose-400 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
+              <p className="text-xs text-rose-600 dark:text-rose-300 font-mono">{errorWeeklyReport}</p>
             </div>
           ) : (
-            <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-2xl space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mx-auto">
+            <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl space-y-3 bg-slate-50/50 dark:bg-slate-800/20">
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto">
                 <Sparkles className="w-6 h-6" />
               </div>
-              <h4 className="font-bold text-slate-800 text-sm">Chưa tạo báo cáo cho tuần {currentWeek}</h4>
-              <p className="text-xs text-slate-500 max-w-md mx-auto">
+              <h4 className="font-bold text-slate-800 dark:text-slate-200 text-sm">Chưa tạo báo cáo cho tuần {currentWeek}</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
                 Bấm vào nút "Tạo Báo Cáo Sinh Hoạt Lớp (AI)" ở trên. Gemini sẽ phân tích toàn bộ điểm số của 40 học sinh, xếp hạng 4 tổ và danh sách trực nhật phạt để tạo báo cáo hoàn chỉnh.
               </p>
             </div>
@@ -448,14 +447,14 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
 
       {/* ================= TAB 2: RECOVERY PLAN ================= */}
       {activeSubTab === 'recovery_plan' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6 transition-colors duration-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="font-extrabold text-slate-900 text-lg sm:text-xl flex items-center gap-2">
+              <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-lg sm:text-xl flex items-center gap-2">
                 <Zap className="w-5 h-5 text-amber-500" />
                 Lộ Trình 7 Ngày Đổi Mới & Khắc Phục Lỗi Vi Phạm
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Tạo kế hoạch hành động cụ thể để giúp học sinh bị phạt trực nhật cải thiện nề nếp và lấy lại điểm số.
               </p>
             </div>
@@ -463,18 +462,18 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Chọn học sinh cần rèn luyện:
               </label>
               <select
                 value={selectedStudentForRecovery}
                 onChange={(e) => setSelectedStudentForRecovery(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 cursor-pointer"
               >
                 {students.map((s) => {
                   const pen = penaltyAssignments.find(p => p.studentId === s.id && p.weekNumber === currentWeek);
                   return (
-                    <option key={s.id} value={s.id}>
+                    <option key={s.id} value={s.id} className="dark:bg-slate-800">
                       {s.name} ({s.code} - Tổ {s.group}) {pen ? '⚠️ [Trực nhật phạt]' : ''}
                     </option>
                   );
@@ -499,14 +498,14 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           </div>
 
           {errorRecoveryPlan && (
-            <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl">
-              <h4 className="font-bold text-rose-700 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
-              <p className="text-xs text-rose-600 font-mono">{errorRecoveryPlan}</p>
+            <div className="p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl">
+              <h4 className="font-bold text-rose-700 dark:text-rose-400 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
+              <p className="text-xs text-rose-600 dark:text-rose-300 font-mono">{errorRecoveryPlan}</p>
             </div>
           )}
 
           {recoveryPlanText && (
-            <div className="p-6 bg-amber-50/40 rounded-2xl border border-amber-200 text-slate-800 text-sm leading-relaxed whitespace-pre-wrap">
+            <div className="p-6 bg-amber-50/40 dark:bg-amber-950/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 text-slate-800 dark:text-slate-200 text-sm leading-relaxed whitespace-pre-wrap">
               {recoveryPlanText}
             </div>
           )}
@@ -515,25 +514,25 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
 
       {/* ================= TAB 3: CHAT ADVISOR ================= */}
       {activeSubTab === 'chat_advisor' && (
-        <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-4">
-          <div className="pb-3 border-b border-slate-100 flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4 transition-colors duration-200">
+          <div className="pb-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700">
+              <div className="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950/80 flex items-center justify-center text-purple-700 dark:text-purple-300">
                 <Brain className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-extrabold text-slate-900 text-base">
+                <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-base">
                   Cố Vấn Sư Phạm Lớp 12A10 (Gemini AI)
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Hỏi đáp trực tiếp về nề nếp, kỷ luật tích cực, tâm lý học sinh lớp 12 và kiến thức học tập
                 </p>
               </div>
             </div>
 
             {highThinkingMode && (
-              <span className="hidden sm:inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 font-bold border border-purple-200">
-                <Brain className="w-3 h-3 text-purple-600" /> Thinking Mode Active
+              <span className="hidden sm:inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 font-bold border border-purple-200 dark:border-purple-800">
+                <Brain className="w-3 h-3 text-purple-600 dark:text-purple-400" /> Thinking Mode Active
               </span>
             )}
           </div>
@@ -549,7 +548,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
               <button
                 key={idx}
                 onClick={() => handleSendChatMessage(chip)}
-                className="text-xs px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-purple-50 hover:text-purple-700 border border-slate-200 text-slate-700 transition-colors cursor-pointer"
+                className="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-purple-50 dark:hover:bg-purple-950/50 hover:text-purple-700 dark:hover:text-purple-300 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
               >
                 💡 {chip}
               </button>
@@ -557,7 +556,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           </div>
 
           {/* Chat Stream Window */}
-          <div className="h-96 overflow-y-auto p-4 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-4">
+          <div className="h-96 overflow-y-auto p-4 bg-slate-50/70 dark:bg-slate-950/50 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-4">
             {chatMessages.map((msg, i) => (
               <div
                 key={i}
@@ -573,14 +572,14 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                     msg.sender === 'user'
                       ? 'bg-blue-600 text-white rounded-tr-none'
                       : msg.text.includes('[LỖI HỆ THỐNG]')
-                      ? 'bg-rose-50 border border-rose-200 text-rose-700 font-medium rounded-tl-none shadow-2xs'
-                      : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none shadow-2xs'
+                      ? 'bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 font-medium rounded-tl-none shadow-2xs'
+                      : 'bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-tl-none shadow-2xs'
                   }`}
                 >
                   {msg.text}
                   <div
                     className={`text-[10px] mt-1.5 ${
-                      msg.sender === 'user' ? 'text-blue-200' : 'text-slate-400'
+                      msg.sender === 'user' ? 'text-blue-200' : 'text-slate-400 dark:text-slate-500'
                     }`}
                   >
                     {msg.time} {msg.modelUsed ? `• ${msg.modelUsed}` : ''}
@@ -589,7 +588,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
               </div>
             ))}
             {isChatLoading && (
-              <div className="flex items-center gap-2 text-xs text-purple-700 font-semibold p-2">
+              <div className="flex items-center gap-2 text-xs text-purple-700 dark:text-purple-300 font-semibold p-2">
                 <Loader2 className="w-4 h-4 animate-spin" />
                 Gemini đang suy luận chi tiết câu trả lời...
               </div>
@@ -609,12 +608,12 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
               placeholder="Nhập câu hỏi hoặc yêu cầu cho Trợ lý AI..."
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
-              className="flex-1 p-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="flex-1 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
             <button
               type="submit"
               disabled={isChatLoading || !inputQuery.trim()}
-              className="px-5 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-slate-300 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md transition-all active:scale-95 flex items-center gap-2 cursor-pointer shrink-0"
+              className="px-5 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md transition-all active:scale-95 flex items-center gap-2 cursor-pointer shrink-0"
             >
               <Send className="w-4 h-4" />
               Gửi
@@ -625,14 +624,14 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
 
       {/* ================= TAB 4: SMART QUIZ ================= */}
       {activeSubTab === 'smart_quiz' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6 transition-colors duration-200">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="font-extrabold text-slate-900 text-lg sm:text-xl flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-blue-600" />
+              <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-lg sm:text-xl flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 Luyện Thi Trắc Nghiệm & Ôn Tập THPT Quốc Gia
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Luyện đề tương tác các môn học lớp 12 và Nội quy trường THPT Yên Thế kèm giải thích chi tiết.
               </p>
             </div>
@@ -646,7 +645,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     selectedSubjectId === sub.id
                       ? 'bg-blue-600 text-white shadow-xs'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-transparent dark:border-slate-700'
                   }`}
                 >
                   {sub.name}
@@ -656,14 +655,14 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           </div>
 
           {/* AI Question Generator Controls */}
-          <div className="p-4 bg-purple-50/60 rounded-2xl border border-purple-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="p-4 bg-purple-50/60 dark:bg-purple-950/30 rounded-2xl border border-purple-200 dark:border-purple-800/60 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="w-full sm:flex-1">
               <input
                 type="text"
                 placeholder="Nhập chủ đề muốn sinh câu hỏi mới (vd: Cực trị hàm số, Sóng ánh sáng, Vợ chồng A Phủ...)"
                 value={quizTopic}
                 onChange={(e) => setQuizTopic(e.target.value)}
-                className="w-full p-2.5 bg-white border border-purple-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full p-2.5 bg-white dark:bg-slate-900 border border-purple-200 dark:border-purple-800/60 rounded-xl text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
 
@@ -678,9 +677,9 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           </div>
 
           {errorQuiz && (
-            <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl">
-              <h4 className="font-bold text-rose-700 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
-              <p className="text-xs text-rose-600 font-mono">{errorQuiz}</p>
+            <div className="p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl">
+              <h4 className="font-bold text-rose-700 dark:text-rose-400 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
+              <p className="text-xs text-rose-600 dark:text-rose-300 font-mono">{errorQuiz}</p>
             </div>
           )}
 
@@ -693,13 +692,13 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
               return (
                 <div
                   key={q.id}
-                  className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4"
+                  className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 space-y-4"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+                    <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">
                       Câu {qIndex + 1}: {q.content}
                     </h4>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 uppercase shrink-0">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 uppercase shrink-0 border border-transparent dark:border-blue-800">
                       {q.difficulty}
                     </span>
                   </div>
@@ -710,15 +709,15 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                       const isOptionSelected = selectedOpt === optIndex;
                       const isOptionCorrect = optIndex === q.correctAnswer;
 
-                      let btnStyle = 'bg-white border-slate-200 text-slate-800 hover:border-slate-300';
+                      let btnStyle = 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600';
                       if (quizSubmitted) {
                         if (isOptionCorrect) {
-                          btnStyle = 'bg-emerald-50 border-emerald-500 text-emerald-900 ring-2 ring-emerald-400';
+                          btnStyle = 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-900 dark:text-emerald-300 ring-2 ring-emerald-400';
                         } else if (isOptionSelected && !isCorrect) {
-                          btnStyle = 'bg-rose-50 border-rose-500 text-rose-900';
+                          btnStyle = 'bg-rose-50 dark:bg-rose-950/40 border-rose-500 text-rose-900 dark:text-rose-300';
                         }
                       } else if (isOptionSelected) {
-                        btnStyle = 'bg-blue-50 border-blue-500 text-blue-900 ring-2 ring-blue-400';
+                        btnStyle = 'bg-blue-50 dark:bg-blue-950/40 border-blue-500 text-blue-900 dark:text-blue-300 ring-2 ring-blue-400';
                       }
 
                       return (
@@ -728,7 +727,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                           onClick={() => handleSelectAnswer(q.id, optIndex)}
                           className={`p-3 rounded-xl border text-left text-xs sm:text-sm font-medium transition-all flex items-center gap-2 cursor-pointer ${btnStyle}`}
                         >
-                          <span className="w-6 h-6 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-xs shrink-0">
+                          <span className="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-xs shrink-0">
                             {['A', 'B', 'C', 'D'][optIndex]}
                           </span>
                           <span>{opt}</span>
@@ -739,12 +738,12 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
 
                   {/* Explanation after submission */}
                   {quizSubmitted && (
-                    <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
-                      <div className="font-bold flex items-center gap-1.5 text-slate-900">
+                    <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 space-y-1">
+                      <div className="font-bold flex items-center gap-1.5 text-slate-900 dark:text-slate-100">
                         {isCorrect ? (
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-rose-600" />
+                          <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
                         )}
                         Giải thích:
                       </div>
@@ -757,10 +756,10 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           </div>
 
           {/* Quiz Action Buttons */}
-          <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+          <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
             {quizSubmitted ? (
               <div className="flex items-center gap-3">
-                <div className="text-sm font-black text-slate-900">
+                <div className="text-sm font-black text-slate-900 dark:text-slate-100">
                   Kết quả: {calculateQuizScore().correct} / {calculateQuizScore().total} câu đúng
                 </div>
                 <button
@@ -768,7 +767,7 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                     setUserAnswers({});
                     setQuizSubmitted(false);
                   }}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer"
+                  className="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer border border-transparent dark:border-slate-700"
                 >
                   <RotateCcw className="w-3.5 h-3.5" /> Làm lại
                 </button>
@@ -790,14 +789,14 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
 
       {/* ================= TAB 5: AGENT ALERTS ================= */}
       {activeSubTab === 'agent_alerts' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6 transition-colors duration-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="font-extrabold text-slate-900 text-lg sm:text-xl flex items-center gap-2">
+              <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-lg sm:text-xl flex items-center gap-2">
                 <Megaphone className="w-5 h-5 text-rose-500" />
                 Hệ Thống Phân Tích & Cảnh Báo Phụ Huynh
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 AI Agent sẽ tự động rà soát điểm số và vi phạm, tìm ra học sinh cần chú ý và soạn sẵn tin nhắn gửi Zalo/SMS cho phụ huynh.
               </p>
             </div>
@@ -822,9 +821,9 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
           </div>
 
           {errorAlerts && (
-            <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl">
-              <h4 className="font-bold text-rose-700 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
-              <p className="text-xs text-rose-600 font-mono">{errorAlerts}</p>
+            <div className="p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl">
+              <h4 className="font-bold text-rose-700 dark:text-rose-400 text-sm mb-1">[LỖI HỆ THỐNG] Đã dừng do lỗi</h4>
+              <p className="text-xs text-rose-600 dark:text-rose-300 font-mono">{errorAlerts}</p>
             </div>
           )}
 
@@ -834,20 +833,20 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                 const student = students.find(s => s.id === alert.studentId);
                 const isWarning = alert.type === 'canh_bao';
                 return (
-                  <div key={idx} className={`p-5 rounded-2xl border ${isWarning ? 'bg-rose-50 border-rose-200' : 'bg-emerald-50 border-emerald-200'} flex flex-col justify-between`}>
+                  <div key={idx} className={`p-5 rounded-2xl border ${isWarning ? 'bg-rose-50/60 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/60' : 'bg-emerald-50/60 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/60'} flex flex-col justify-between`}>
                     <div className="space-y-3">
                       <div className="flex items-start justify-between">
                         <div>
-                          <div className={`text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5 ${isWarning ? 'text-rose-700' : 'text-emerald-700'}`}>
+                          <div className={`text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5 ${isWarning ? 'text-rose-700 dark:text-rose-400' : 'text-emerald-700 dark:text-emerald-400'}`}>
                             {isWarning ? <AlertTriangle className="w-4 h-4" /> : <Award className="w-4 h-4" />}
                             {isWarning ? 'Cảnh Báo Kỷ Luật' : 'Tuyên Dương'}
                           </div>
-                          <h4 className="font-extrabold text-slate-900 text-base">{student?.name}</h4>
-                          <p className="text-[11px] text-slate-600 mt-0.5">Lý do: {alert.reason}</p>
+                          <h4 className="font-extrabold text-slate-900 dark:text-slate-100 text-base">{student?.name}</h4>
+                          <p className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5">Lý do: {alert.reason}</p>
                         </div>
                       </div>
                       
-                      <div className="p-3 bg-white/60 rounded-xl border border-white/50 text-sm text-slate-800 leading-relaxed font-medium">
+                      <div className="p-3 bg-white/70 dark:bg-slate-900/70 rounded-xl border border-white/50 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-medium">
                         {alert.messageTemplate}
                       </div>
                     </div>
@@ -862,8 +861,8 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
                         copiedAlertId === alert.studentId
                           ? 'bg-emerald-500 text-white'
                           : isWarning
-                          ? 'bg-rose-100 hover:bg-rose-200 text-rose-700'
-                          : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-700'
+                          ? 'bg-rose-100 dark:bg-rose-900/50 hover:bg-rose-200 dark:hover:bg-rose-900/80 text-rose-700 dark:text-rose-300'
+                          : 'bg-emerald-100 dark:bg-emerald-900/50 hover:bg-emerald-200 dark:hover:bg-emerald-900/80 text-emerald-700 dark:text-emerald-300'
                       }`}
                     >
                       {copiedAlertId === alert.studentId ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
@@ -874,12 +873,12 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
               })}
             </div>
           ) : !isGeneratingAlerts && !errorAlerts ? (
-            <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-2xl space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center mx-auto">
+            <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl space-y-3 bg-slate-50/50 dark:bg-slate-800/20">
+              <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-500 dark:text-rose-400 flex items-center justify-center mx-auto">
                 <Megaphone className="w-6 h-6" />
               </div>
-              <h4 className="font-bold text-slate-800 text-sm">Chưa có dữ liệu cảnh báo</h4>
-              <p className="text-xs text-slate-500 max-w-md mx-auto">
+              <h4 className="font-bold text-slate-800 dark:text-slate-200 text-sm">Chưa có dữ liệu cảnh báo</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
                 Hãy bấm "Phân Tích Lớp Học" để AI tự động quét điểm số, vi phạm và đưa ra các đề xuất tin nhắn gửi phụ huynh.
               </p>
             </div>
@@ -889,3 +888,5 @@ Hãy trả lời một cách lịch thiệp, sâu sắc, thực tế, đầy đ�
     </div>
   );
 };
+
+export default AIAssistantTab;

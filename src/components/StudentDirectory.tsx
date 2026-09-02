@@ -8,20 +8,14 @@ import { Student, ScoreLogEntry, PenaltyAssignment, UserRole } from '../types';
 import { 
   Users, 
   Search, 
-  Phone, 
-  Mail, 
   Calendar, 
-  Award, 
   History, 
   UserPlus, 
-  Filter,
-  ShieldCheck,
-  ChevronRight,
-  X,
-  PlusCircle,
-  Edit2,
-  Trash2,
-  BookOpen,
+  X, 
+  PlusCircle, 
+  Edit2, 
+  Trash2, 
+  BookOpen, 
   Download
 } from 'lucide-react';
 import { downloadSampleExcel } from '../utils/excelImport';
@@ -136,7 +130,7 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
   };
 
   const handleDelete = (studentId: string) => {
-    if (window.confirm('Bạn có chắc chắn muốn xoá học sinh này? Tất cả dữ liệu điểm thi đua liên quan cũng có thể bị mồ côi.')) {
+    if (window.confirm('Bạn có chắc chắn muốn xoá học sinh này? Tất cả dữ liệu điểm thi đua liên quan cũng có thể bị xoá.')) {
       onDeleteStudent(studentId);
     }
   };
@@ -233,13 +227,13 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
     <div className="space-y-6">
       
       {/* Header & Controls */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-colors duration-200">
         <div>
-          <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-            <Users className="w-6 h-6 text-blue-600" />
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             Danh Sách Học Sinh 12A10 ({students.length} Thành Viên)
           </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Sĩ số: {students.length} học sinh • Phân bổ đồng đều vào 4 tổ
           </p>
         </div>
@@ -250,38 +244,38 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
             <>
               <button
                 onClick={handleDeleteAll}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center gap-2 transition-all active:scale-95 cursor-pointer shrink-0"
+                className="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0"
               >
                 <Trash2 className="w-4 h-4" />
                 Xoá Tất Cả
               </button>
-              <label className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center gap-2 transition-all active:scale-95 cursor-pointer shrink-0">
+              <label className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0">
                 <input type="file" accept=".xlsx, .xls" className="hidden" onChange={handleFileUpload} />
                 <BookOpen className="w-4 h-4" />
-                Nhập từ Excel
+                Nhập Excel
               </label>
               <button
                 onClick={downloadSampleExcel}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center gap-2 transition-all active:scale-95 cursor-pointer shrink-0 border border-slate-200"
+                className="px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs sm:text-sm rounded-xl shadow-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0 border border-slate-200 dark:border-slate-700"
                 title="Tải file Excel mẫu"
               >
                 <Download className="w-4 h-4" />
-                Tải File Mẫu
+                Mẫu
               </button>
               <button
                 onClick={() => handleOpenForm()}
-                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center gap-2 transition-all active:scale-95 cursor-pointer shrink-0"
+                className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0"
               >
                 <PlusCircle className="w-4 h-4" />
-                Thêm Học Sinh
+                Thêm HS
               </button>
             </>
           )}
-          <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold transition-colors">
             <button
               onClick={() => setSelectedGroup('all')}
               className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                selectedGroup === 'all' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
+                selectedGroup === 'all' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300'
               }`}
             >
               Tất cả ({students.length})
@@ -291,10 +285,10 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
                 key={g}
                 onClick={() => setSelectedGroup(g)}
                 className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                  selectedGroup === g ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
+                  selectedGroup === g ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300'
                 }`}
               >
-                Tổ {g} ({students.filter(s => s.group === g).length})
+                Tổ {g}
               </button>
             ))}
           </div>
@@ -303,10 +297,10 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
             <input
               type="text"
-              placeholder="Tìm theo tên, mã HS..."
+              placeholder="Tìm tên, mã HS..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -320,7 +314,7 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
         className="hidden" 
       />
 
-      {/* 40 Students Cards Grid */}
+      {/* Students Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {filteredStudents.map((std) => {
           const weekLogs = scoreLogs.filter(l => l.studentId === std.id && l.weekNumber === currentWeek);
@@ -329,7 +323,7 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
           return (
             <div
               key={std.id}
-              className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-3 group"
+              className="bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-3 group"
             >
               <div className="flex items-start gap-3">
                 <div 
@@ -341,7 +335,7 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
                   <img
                     src={std.avatar}
                     alt={std.name}
-                    className={`w-12 h-12 rounded-2xl object-cover border-2 border-slate-100 transition-all ${canEditAvatar(std.group) ? 'group-hover/avatar:brightness-50 group-hover:scale-105' : 'group-hover:scale-105'}`}
+                    className={`w-12 h-12 rounded-2xl object-cover border-2 border-slate-100 dark:border-slate-700 transition-all ${canEditAvatar(std.group) ? 'group-hover/avatar:brightness-50 group-hover:scale-105' : 'group-hover:scale-105'}`}
                   />
                   {canEditAvatar(std.group) && (
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/avatar:opacity-100 transition-opacity">
@@ -355,41 +349,41 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
                       <select
                         value={std.group}
                         onChange={(e) => onEditStudent(std.id, { group: Number(e.target.value) })}
-                        className="text-[10px] font-bold px-1 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 outline-none cursor-pointer hover:bg-blue-100 transition-colors"
+                        className="text-[10px] font-bold px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 outline-none cursor-pointer hover:bg-blue-100 transition-colors"
                         title="Chuyển tổ"
                       >
                         {[1, 2, 3, 4].map(g => (
-                          <option key={g} value={g}>Tổ {g}</option>
+                          <option key={g} value={g} className="dark:bg-slate-800">Tổ {g}</option>
                         ))}
                       </select>
                     ) : (
-                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-blue-50 text-blue-700 border border-blue-100">
+                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900">
                         Tổ {std.group}
                       </span>
                     )}
-                    <span className="text-[10px] font-mono font-bold text-slate-500">{std.phone || std.parentPhone || std.code}</span>
+                    <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400">{std.phone || std.parentPhone || std.code}</span>
                   </div>
-                  <h4 className="font-bold text-slate-900 text-sm mt-1 truncate">{std.name}</h4>
-                  <p className="text-xs text-blue-600 font-medium truncate">{std.roleInClass}</p>
+                  <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm mt-1 truncate">{std.name}</h4>
+                  <p className="text-xs text-blue-600 dark:text-blue-400 font-medium truncate">{std.roleInClass}</p>
                 </div>
               </div>
 
-              <div className="space-y-1.5 pt-2 border-t border-slate-100 text-xs text-slate-600">
+              <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400">Điểm tuần {currentWeek}:</span>
+                  <span className="text-slate-400 dark:text-slate-500">Điểm tuần {currentWeek}:</span>
                   <span className={`font-black ${
-                    totalPoints >= 105 ? 'text-emerald-600' : totalPoints < 95 ? 'text-rose-600' : 'text-slate-800'
+                    totalPoints >= 105 ? 'text-emerald-600 dark:text-emerald-400' : totalPoints < 95 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-200'
                   }`}>
                     {totalPoints}đ
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-[11px]">
-                  <span className="text-slate-400 truncate">Phụ huynh:</span>
-                  <span className="font-medium text-slate-700 truncate">{std.parentName}</span>
+                  <span className="text-slate-400 dark:text-slate-500 truncate">Phụ huynh:</span>
+                  <span className="font-medium text-slate-700 dark:text-slate-200 truncate">{std.parentName}</span>
                 </div>
                 <div className="flex items-center justify-between text-[11px]">
-                  <span className="text-slate-400">SĐT:</span>
-                  <a href={`tel:${std.parentPhone}`} className="text-blue-600 hover:underline font-mono">
+                  <span className="text-slate-400 dark:text-slate-500">SĐT:</span>
+                  <a href={`tel:${std.parentPhone}`} className="text-blue-600 dark:text-blue-400 hover:underline font-mono">
                     {std.parentPhone}
                   </a>
                 </div>
@@ -398,7 +392,7 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
               <div className="flex gap-2">
                 <button
                   onClick={() => onOpenStudentHistory(std.id)}
-                  className="flex-1 py-1.5 rounded-xl bg-slate-50 hover:bg-blue-50 text-slate-700 hover:text-blue-700 font-semibold text-xs border border-slate-200 transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                  className="flex-1 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition-colors flex items-center justify-center gap-1 cursor-pointer"
                 >
                   <History className="w-3.5 h-3.5" />
                   Xem Hồ Sơ
@@ -407,14 +401,14 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
                   <>
                     <button
                       onClick={() => handleOpenForm(std)}
-                      className="p-1.5 rounded-xl bg-slate-50 hover:bg-amber-50 text-slate-400 hover:text-amber-600 font-semibold border border-slate-200 transition-colors flex items-center justify-center cursor-pointer"
+                      className="p-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/60 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 font-semibold border border-slate-200 dark:border-slate-700 transition-colors flex items-center justify-center cursor-pointer"
                       title="Sửa"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(std.id)}
-                      className="p-1.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 font-semibold border border-slate-200 transition-colors flex items-center justify-center cursor-pointer"
+                      className="p-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/60 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 font-semibold border border-slate-200 dark:border-slate-700 transition-colors flex items-center justify-center cursor-pointer"
                       title="Xoá"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -429,8 +423,8 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
 
       {/* STUDENT HISTORY MODAL */}
       {activeHistoryStudent && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
             
             {/* Modal Header */}
             <div className="px-6 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between">
@@ -469,24 +463,24 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
               {/* Penalty History (if any) */}
               {studentPenalties.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-amber-800 flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-amber-600" />
+                  <h4 className="font-bold text-xs uppercase tracking-wider text-amber-800 dark:text-amber-400 flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                     Lịch Sử Trực Nhật Phạt
                   </h4>
                   <div className="space-y-2">
                     {studentPenalties.map((pen) => (
                       <div
                         key={pen.id}
-                        className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-xs flex items-center justify-between"
+                        className="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800/60 text-xs flex items-center justify-between"
                       >
                         <div>
-                          <div className="font-bold text-amber-900">
+                          <div className="font-bold text-amber-900 dark:text-amber-200">
                             Tuần {pen.weekNumber}: {pen.dutyDay} - {pen.dutyTask}
                           </div>
-                          <p className="text-slate-600 text-[11px] mt-0.5">Lý do: {pen.note}</p>
+                          <p className="text-slate-600 dark:text-slate-400 text-[11px] mt-0.5">Lý do: {pen.note}</p>
                         </div>
                         <span className={`px-2 py-0.5 rounded-md font-bold text-[10px] ${
-                          pen.status === 'completed' ? 'bg-emerald-200 text-emerald-800' : 'bg-amber-200 text-amber-900'
+                          pen.status === 'completed' ? 'bg-emerald-200 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300' : 'bg-amber-200 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300'
                         }`}>
                           {pen.status === 'completed' ? 'Đã hoàn thành' : 'Chưa hoàn thành'}
                         </span>
@@ -498,13 +492,13 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
 
               {/* Full Timeline of Score Logs */}
               <div className="space-y-2">
-                <h4 className="font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                  <History className="w-4 h-4 text-blue-600" />
+                <h4 className="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <History className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   Nhật Ký Điểm Cộng / Trừ Toàn Năm
                 </h4>
 
                 {studentLogs.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic py-4 text-center">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 italic py-4 text-center">
                     Chưa có nhật ký ghi nhận vi phạm hay cộng điểm nào.
                   </p>
                 ) : (
@@ -512,20 +506,20 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
                     {studentLogs.map((log) => (
                       <div
                         key={log.id}
-                        className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 flex items-start justify-between text-xs gap-3"
+                        className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 flex items-start justify-between text-xs gap-3"
                       >
                         <div>
-                          <div className="font-bold text-slate-900">
+                          <div className="font-bold text-slate-900 dark:text-slate-100">
                             [Tuần {log.weekNumber}] {log.criterionName}
                           </div>
-                          {log.note && <p className="text-slate-600 text-[11px] mt-0.5">{log.note}</p>}
-                          <p className="text-[10px] text-slate-400 mt-1">
+                          {log.note && <p className="text-slate-600 dark:text-slate-300 text-[11px] mt-0.5">{log.note}</p>}
+                          <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
                             Ghi nhận bởi: {log.recordedBy} • {new Date(log.timestamp).toLocaleString('vi-VN')}
                           </p>
                         </div>
 
                         <span className={`font-black text-xs px-2 py-1 rounded-xl shrink-0 ${
-                          log.points > 0 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200'
+                          log.points > 0 ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
                         }`}>
                           {log.points > 0 ? `+${log.points}` : log.points} đ
                         </span>
@@ -537,10 +531,10 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-800 flex justify-end">
               <button
                 onClick={onCloseHistoryModal}
-                className="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer"
+                className="px-5 py-2 bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 dark:hover:bg-slate-600 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer"
               >
                 Đóng
               </button>
@@ -551,16 +545,16 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
 
       {/* STUDENT ADD/EDIT FORM MODAL */}
       {isFormModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-              <h3 className="font-extrabold text-slate-900 text-lg flex items-center gap-2">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <h3 className="font-extrabold text-slate-900 dark:text-slate-100 text-lg flex items-center gap-2">
                 {editingStudent ? <Edit2 className="w-5 h-5 text-amber-500" /> : <UserPlus className="w-5 h-5 text-emerald-500" />}
                 {editingStudent ? 'Sửa Thông Tin Học Sinh' : 'Thêm Học Sinh Mới'}
               </h3>
               <button
                 onClick={() => setIsFormModalOpen(false)}
-                className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500 transition-colors cursor-pointer"
+                className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -569,69 +563,69 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
             <form onSubmit={handleSubmitForm} className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Mã Học Sinh</label>
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Mã Học Sinh</label>
                   <input
                     type="text"
                     required
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                     placeholder="VD: 12A10-01"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Họ và Tên</label>
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Họ và Tên</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                     placeholder="Nguyễn Văn A"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Số Điện Thoại Học Sinh (Nơi chữ HS-MỚI hiển thị)</label>
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Số Điện Thoại Học Sinh (Nơi chữ HS-MỚI hiển thị)</label>
                 <input
                   type="text"
                   value={formData.phone || ''}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                   placeholder="VD: 0912345678"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Tổ</label>
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Tổ</label>
                   <select
                     value={formData.group}
                     onChange={(e) => setFormData({ ...formData, group: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer"
+                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer"
                   >
-                    {[1, 2, 3, 4].map(g => <option key={g} value={g}>Tổ {g}</option>)}
+                    {[1, 2, 3, 4].map(g => <option key={g} value={g} className="dark:bg-slate-800">Tổ {g}</option>)}
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Giới tính</label>
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Giới tính</label>
                   <select
                     value={formData.gender}
                     onChange={(e) => setFormData({ ...formData, gender: e.target.value as 'Nam' | 'Nữ' })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer"
+                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer"
                   >
-                    <option value="Nam">Nam</option>
-                    <option value="Nữ">Nữ</option>
+                    <option value="Nam" className="dark:bg-slate-800">Nam</option>
+                    <option value="Nữ" className="dark:bg-slate-800">Nữ</option>
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Chức vụ</label>
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Chức vụ</label>
                   <input
                     type="text"
                     value={formData.roleInClass}
                     onChange={(e) => setFormData({ ...formData, roleInClass: e.target.value })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                     placeholder="VD: Học sinh"
                   />
                 </div>
@@ -639,45 +633,45 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
 
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Tên Phụ Huynh</label>
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Tên Phụ Huynh</label>
                   <input
                     type="text"
                     required
                     value={formData.parentName}
                     onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                     placeholder="Ông/Bà..."
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">SĐT Phụ Huynh</label>
+                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">SĐT Phụ Huynh</label>
                   <input
                     type="text"
                     required
                     value={formData.parentPhone}
                     onChange={(e) => setFormData({ ...formData, parentPhone: e.target.value })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                     placeholder="09..."
                   />
                 </div>
               </div>
 
               <div className="space-y-1 pt-2">
-                <label className="text-xs font-bold text-slate-700">Địa Chỉ Nhà</label>
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Địa Chỉ Nhà</label>
                 <input
                   type="text"
                   value={formData.address || ''}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                   placeholder="VD: Số 123, đường A, phường B..."
                 />
               </div>
 
-              <div className="pt-4 flex items-center justify-end gap-3 border-t border-slate-100">
+              <div className="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => setIsFormModalOpen(false)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-xl transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-sm rounded-xl transition-colors cursor-pointer"
                 >
                   Huỷ
                 </button>
@@ -695,3 +689,5 @@ export const StudentDirectory: React.FC<StudentDirectoryProps> = ({
     </div>
   );
 };
+
+export default StudentDirectory;

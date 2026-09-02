@@ -12,9 +12,7 @@ import {
   Copy, 
   Sparkles, 
   Check, 
-  Smartphone, 
   MessageSquare, 
-  AlertTriangle,
   Loader2
 } from 'lucide-react';
 
@@ -92,8 +90,8 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-xl w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         
         {/* Header */}
         <div className="px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between">
@@ -122,28 +120,28 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
         <div className="p-6 space-y-4">
           
           {/* Target Info card */}
-          <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 flex items-center justify-between text-xs">
+          <div className="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800/60 flex items-center justify-between text-xs">
             <div>
-              <div className="font-bold text-amber-900">
+              <div className="font-bold text-amber-900 dark:text-amber-200">
                 Học sinh: {student.name} ({student.code}) - Tổ {student.group}
               </div>
-              <div className="text-amber-700 mt-0.5">
-                Điểm tuần: <span className="font-bold text-rose-600">{penalty.totalScore}đ</span> • Trực nhật: <span className="font-bold text-slate-900">{penalty.dutyDay}</span>
+              <div className="text-amber-700 dark:text-amber-400 mt-0.5">
+                Điểm tuần: <span className="font-bold text-rose-600 dark:text-rose-400">{penalty.totalScore}đ</span> • Trực nhật: <span className="font-bold text-slate-900 dark:text-slate-100">{penalty.dutyDay}</span>
               </div>
             </div>
-            <span className="px-2 py-1 rounded-md bg-amber-200 text-amber-900 font-bold text-[10px]">
+            <span className="px-2 py-1 rounded-md bg-amber-200 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300 font-bold text-[10px] border border-transparent dark:border-amber-700">
               Trực nhật phạt
             </span>
           </div>
 
           {/* Channel selector & AI assist */}
           <div className="flex items-center justify-between gap-2">
-            <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+            <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold transition-colors">
               <button
                 type="button"
                 onClick={() => setChannel('zalo')}
                 className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                  channel === 'zalo' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
+                  channel === 'zalo' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300'
                 }`}
               >
                 Zalo Thông Báo
@@ -152,7 +150,7 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
                 type="button"
                 onClick={() => setChannel('sms')}
                 className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-                  channel === 'sms' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
+                  channel === 'sms' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-300'
                 }`}
               >
                 Tin Nhắn SMS
@@ -163,10 +161,10 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
               type="button"
               onClick={handleGenerateAI}
               disabled={isGeneratingAI}
-              className="px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-700 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-purple-950/60 hover:bg-purple-100 dark:hover:bg-purple-900/60 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               {isGeneratingAI ? (
-                <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-600" />
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-600 dark:text-purple-400" />
               ) : (
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               )}
@@ -177,15 +175,15 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
           {/* Message Textarea */}
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-xs font-bold text-slate-700">
+              <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
                 Nội Dung Tin Nhắn Gửi Phụ Huynh:
               </label>
               <button
                 type="button"
                 onClick={handleCopy}
-                className="text-xs text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1 cursor-pointer"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold flex items-center gap-1 cursor-pointer"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                 {copied ? 'Đã sao chép!' : 'Sao chép'}
               </button>
             </div>
@@ -193,7 +191,7 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
               rows={8}
               value={messageContent}
               onChange={(e) => setMessageContent(e.target.value)}
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 leading-relaxed"
+              className="w-full p-3 bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs sm:text-sm font-mono text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 leading-relaxed"
             />
           </div>
 
@@ -206,11 +204,11 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
           )}
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               Đóng
             </button>
@@ -228,3 +226,5 @@ GVCN: Cô Ninh Thị Thu Hà (0982984057)`;
     </div>
   );
 };
+
+export default NotificationModal;

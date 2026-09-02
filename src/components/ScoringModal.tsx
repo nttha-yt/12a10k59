@@ -10,16 +10,7 @@ import {
   X, 
   Search, 
   PlusCircle, 
-  MinusCircle, 
-  CheckCircle2, 
-  Sparkles, 
-  BookOpen, 
-  Clock, 
-  Shirt, 
-  Smartphone, 
-  Trash2, 
-  Star,
-  Award
+  CheckCircle2
 } from 'lucide-react';
 
 interface ScoringModalProps {
@@ -120,8 +111,8 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Header */}
         <div className="px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between">
@@ -147,7 +138,7 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
           
           {/* Step 1: Chọn Học Sinh */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
               1. Chọn Học Sinh Cần Chấm Điểm
             </label>
 
@@ -160,7 +151,7 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                   className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     selectedGroup === 'all'
                       ? 'bg-blue-600 text-white shadow-xs'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
                   Tất Cả Lớp
@@ -180,7 +171,7 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                     className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                       selectedGroup === g
                         ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     Tổ {g}
@@ -197,12 +188,12 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                 placeholder="Tìm học sinh theo tên hoặc mã (vd: Tuấn, 12A10-01)..."
                 value={searchStudent}
                 onChange={(e) => setSearchStudent(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             {/* Student Horizontal / Grid Selector */}
-            <div className="max-h-36 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-2 p-1 border border-slate-100 rounded-xl bg-slate-50/50">
+            <div className="max-h-36 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-2 p-1 border border-slate-100 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-950/40">
               {filteredStudents.map((std) => (
                 <button
                   type="button"
@@ -210,8 +201,8 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                   onClick={() => setSelectedStudentId(std.student.id)}
                   className={`p-2 rounded-xl text-left flex items-center gap-2 border transition-all cursor-pointer ${
                     selectedStudentId === std.student.id
-                      ? 'bg-blue-50 border-blue-500 ring-2 ring-blue-500/20 shadow-xs'
-                      : 'bg-white border-slate-200 hover:border-slate-300'
+                      ? 'bg-blue-50 dark:bg-blue-950/60 border-blue-500 ring-2 ring-blue-500/20 shadow-xs'
+                      : 'bg-white dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
                   }`}
                 >
                   <img
@@ -220,11 +211,11 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                     className="w-7 h-7 rounded-full object-cover shrink-0"
                   />
                   <div className="truncate flex-1">
-                    <div className="font-bold text-xs text-slate-900 truncate">{std.student.name}</div>
-                    <div className="text-[10px] text-slate-500 flex justify-between items-center w-full">
+                    <div className="font-bold text-xs text-slate-900 dark:text-slate-100 truncate">{std.student.name}</div>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400 flex justify-between items-center w-full">
                       <span>Tổ {std.student.group}</span>
                       <span className={`font-bold ${
-                        std.totalScore >= 105 ? 'text-emerald-600' : std.totalScore < 95 ? 'text-rose-600' : 'text-slate-700'
+                        std.totalScore >= 105 ? 'text-emerald-600 dark:text-emerald-400' : std.totalScore < 95 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-700 dark:text-slate-300'
                       }`}>{std.totalScore}đ</span>
                     </div>
                   </div>
@@ -235,7 +226,7 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
 
           {/* Step 2: Chọn Tiêu Chí Chấm Điểm */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
               2. Chọn Tiêu Chí Vi Phạm / Khen Thưởng
             </label>
 
@@ -254,8 +245,8 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                     selectedCategory === cat.id
-                      ? 'bg-slate-800 text-white font-semibold'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-slate-800 dark:bg-blue-600 text-white font-semibold'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
                   {cat.label}
@@ -274,25 +265,25 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                     onClick={() => handleSelectRule(rule)}
                     className={`p-2.5 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-all ${
                       isSelected
-                        ? 'bg-blue-50/80 border-blue-500 ring-2 ring-blue-500/20 shadow-xs'
-                        : 'bg-white hover:bg-slate-50 border-slate-200'
+                        ? 'bg-blue-50/80 dark:bg-blue-950/60 border-blue-500 ring-2 ring-blue-500/20 shadow-xs'
+                        : 'bg-white dark:bg-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-700'
                     }`}
                   >
                     <div className="flex items-center gap-2.5 truncate">
                       <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${
-                        isBonus ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
+                        isBonus ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300'
                       }`}>
                         {isBonus ? '+' : '-'}
                       </span>
                       <div className="truncate">
-                        <div className="text-xs font-bold text-slate-800 truncate">{rule.name}</div>
-                        <div className="text-[11px] text-slate-500 truncate">{rule.description}</div>
+                        <div className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{rule.name}</div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{rule.description}</div>
                       </div>
                     </div>
 
                     <div className="shrink-0 font-extrabold text-xs">
                       <span className={`px-2 py-0.5 rounded-md ${
-                        isBonus ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
+                        isBonus ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300' : 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300'
                       }`}>
                         {isBonus ? `+${rule.points}` : rule.points} đ
                       </span>
@@ -306,7 +297,7 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
           {/* Step 3: Ghi Chú & Tổng Điểm */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-slate-600 mb-1">
+              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
                 Ghi chú chung (Tiết học, môn học, hành vi cụ thể):
               </label>
               <input
@@ -314,16 +305,16 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
                 placeholder="VD: Đến muộn 10p tiết 1; 10đ miệng môn Toán;..."
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">
+              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
                 Tổng điểm áp dụng:
               </label>
-              <div className={`w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold flex items-center justify-between ${
-                totalSelectedPoints > 0 ? 'text-emerald-600' : totalSelectedPoints < 0 ? 'text-rose-600' : 'text-slate-800'
+              <div className={`w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold flex items-center justify-between ${
+                totalSelectedPoints > 0 ? 'text-emerald-600 dark:text-emerald-400' : totalSelectedPoints < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-200'
               }`}>
                 <span>{selectedRuleIds.length} tiêu chí</span>
                 <span>{totalSelectedPoints > 0 ? `+${totalSelectedPoints}` : totalSelectedPoints} đ</span>
@@ -340,11 +331,11 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
           )}
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               Đóng
             </button>
@@ -354,7 +345,7 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
               className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white shadow-md transition-all active:scale-95 flex items-center gap-2 cursor-pointer ${
                 selectedStudentId && selectedRuleIds.length > 0
                   ? 'bg-blue-600 hover:bg-blue-700 shadow-blue-500/25'
-                  : 'bg-slate-300 cursor-not-allowed'
+                  : 'bg-slate-300 dark:bg-slate-700 cursor-not-allowed'
               }`}
             >
               <CheckCircle2 className="w-4 h-4" />
@@ -366,3 +357,5 @@ export const ScoringModal: React.FC<ScoringModalProps> = ({
     </div>
   );
 };
+
+export default ScoringModal;

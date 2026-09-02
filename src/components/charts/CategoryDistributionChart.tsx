@@ -7,6 +7,7 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface CategoryDistributionChartProps {
   scoreLogs: {
@@ -18,6 +19,7 @@ interface CategoryDistributionChartProps {
 }
 
 export const CategoryDistributionChart: React.FC<CategoryDistributionChartProps> = ({ scoreLogs, currentWeek }) => {
+  const { isDark } = useTheme();
   const currentLogs = scoreLogs.filter(l => l.weekNumber === currentWeek);
   
   // Calculate total absolute points per category for the chart
@@ -43,9 +45,12 @@ export const CategoryDistributionChart: React.FC<CategoryDistributionChartProps>
   ].filter(item => item.value > 0);
 
   return (
-    <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
-      <h3 className="font-bold text-slate-800 mb-4">Phân Bổ Vi Phạm/Khen Thưởng</h3>
-      <div className="flex-1 min-h-[250px]">
+    <div className="bg-white dark:bg-slate-900/90 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col h-full transition-colors duration-200">
+      <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-4 text-sm sm:text-base flex items-center justify-between">
+        <span>Phân Bổ Vi Phạm / Khen Thưởng</span>
+        <span className="text-xs font-normal text-slate-400 dark:text-slate-500">Tuần {currentWeek}</span>
+      </h3>
+      <div className="flex-1 min-h-[240px]">
         {data.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -53,24 +58,42 @@ export const CategoryDistributionChart: React.FC<CategoryDistributionChartProps>
                 data={data}
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
+                innerRadius={55}
                 outerRadius={80}
-                paddingAngle={5}
+                paddingAngle={4}
                 dataKey="value"
+                stroke={isDark ? '#0F172A' : '#FFFFFF'}
+                strokeWidth={2}
               >
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value: number) => [`${value} Điểm`, 'Biến động']}
-                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                formatter={(value: any) => [`${value} Điểm`, 'Biến động']}
+                contentStyle={{ 
+                  backgroundColor: isDark ? '#1E293B' : '#FFFFFF',
+                  borderColor: isDark ? '#334155' : '#E2E8F0',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+                  color: isDark ? '#F1F5F9' : '#0F172A',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                }}
               />
-              <Legend verticalAlign="bottom" height={36} iconType="circle" />
+              <Legend 
+                verticalAlign="bottom" 
+                height={36} 
+                iconType="circle"
+                wrapperStyle={{
+                  color: isDark ? '#94A3B8' : '#64748B',
+                  fontSize: '12px',
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-full flex items-center justify-center text-slate-400 text-sm">
+          <div className="h-full flex items-center justify-center text-slate-400 dark:text-slate-500 text-sm">
             Chưa có biến động điểm trong tuần này
           </div>
         )}

@@ -423,7 +423,7 @@ export function App() {
   const currentWeekPenalties = data.penaltyAssignments.filter(p => p.weekNumber === currentWeek);
 
   return (
-    <div className="min-h-screen bg-slate-100/70 text-slate-900 font-sans flex flex-col selection:bg-blue-600 selection:text-white pb-16">
+    <div className="min-h-screen bg-slate-100/70 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col selection:bg-blue-600 selection:text-white dark:selection:bg-blue-500 pb-16 transition-colors duration-200">
 
       {/* Top Header Navigation */}
       <Header
@@ -599,10 +599,10 @@ export function App() {
       />
 
       {/* Footer */}
-      <footer className="mt-12 text-center text-xs text-slate-500 py-6 border-t border-slate-200">
+      <footer className="mt-12 text-center text-xs text-slate-500 dark:text-slate-400 py-6 border-t border-slate-200 dark:border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>© 2026-2027 Lớp 12A10 - THPT Yên Thế. Hệ thống Quản lý Thi đua & Trực nhật Tự động.</p>
-          <p className="flex items-center gap-1 text-slate-400">
+          <p className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
             Tích hợp Gemini 3.1 Thinking AI • GVCN: Cô Ninh Thị Thu Hà
           </p>
         </div>
