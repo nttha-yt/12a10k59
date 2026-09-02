@@ -107,23 +107,20 @@ export function App() {
     }
   }, [isDataLoaded, data.rules?.length]);
 
-  // Migrate Seating Chart (Auto-add Tổ 2 and Tổ 3 if missing)
+  // Migrate Seating Chart (Auto-sync with updated Tổ 1, 2, 3, 4 layout)
   useEffect(() => {
     if (isDataLoaded) {
       const currentSeating = data.settings.seatingChart || {};
-      const needsUpdateGroup2 = !currentSeating["2"] || currentSeating["2"].length === 0;
-      const needsUpdateGroup3 = !currentSeating["3"] || currentSeating["3"].length === 0;
+      const needsUpdate = !currentSeating["1"] || !currentSeating["4"] ||
+        currentSeating["3"]?.some(d => d.leftStudent === 'Trần thị thu Huyền') ||
+        currentSeating["2"]?.some(d => d.leftStudent === 'Nguyệt Ánh');
       
-      if (needsUpdateGroup2 || needsUpdateGroup3) {
+      if (needsUpdate) {
         setData(prev => ({
           ...prev,
           settings: {
             ...prev.settings,
-            seatingChart: {
-              ...currentSeating,
-              ...(needsUpdateGroup2 ? { "2": INITIAL_APP_DATA.settings.seatingChart!["2"] } : {}),
-              ...(needsUpdateGroup3 ? { "3": INITIAL_APP_DATA.settings.seatingChart!["3"] } : {}),
-            }
+            seatingChart: INITIAL_APP_DATA.settings.seatingChart
           }
         }));
       }

@@ -61,6 +61,12 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
     settings?.seatingChart || {}
   );
 
+  React.useEffect(() => {
+    if (settings?.seatingChart) {
+      setSeatingChartState(settings.seatingChart);
+    }
+  }, [settings?.seatingChart]);
+
   const handleSaveSeating = () => {
     onUpdateSettings({ ...settings, seatingChart: seatingChartState });
     setIsEditingSeating(false);
@@ -394,6 +400,12 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
           {[1, 2, 3, 4].map(groupNum => {
             const isDutyGroup = groupNum === mainDutyGroupCurrent;
             const groupDesks = seatingChartState[String(groupNum)] || [];
+            const groupLeaders: Record<number, string> = {
+              1: 'Hoàng Gia Huy',
+              2: 'Dương Thị Thúy',
+              3: 'Nguyễn Triệu Huy',
+              4: 'Phạm Thu Hương',
+            };
 
             return (
               <div key={groupNum} className={`border-2 rounded-2xl p-4 sm:p-4.5 transition-all flex flex-col justify-between ${isDutyGroup ? 'border-blue-500/80 dark:border-blue-400/80 bg-blue-50/20 dark:bg-blue-950/20 shadow-sm' : 'border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-850/60'}`}>
@@ -407,7 +419,7 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
                         <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm leading-tight">
                           DÃY TỔ {groupNum}
                         </h4>
-                        <span className="text-[10px] text-slate-400 font-medium">(Trái • Phải)</span>
+                        <span className="text-[10px] text-blue-600 dark:text-blue-400 font-medium">Tổ trưởng: {groupLeaders[groupNum]}</span>
                       </div>
                     </div>
                     {isDutyGroup && (

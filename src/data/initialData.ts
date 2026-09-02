@@ -26,7 +26,7 @@ export const USER_ACCOUNTS: UserAccount[] = [
   },
   {
     id: 'usr_tt1',
-    name: 'Nguyễn Văn An',
+    name: 'Hoàng Gia Huy',
     role: 'to_truong_1',
     roleTitle: 'Tổ trưởng Tổ 1',
     groupNumber: 1,
@@ -36,7 +36,7 @@ export const USER_ACCOUNTS: UserAccount[] = [
   },
   {
     id: 'usr_tt2',
-    name: 'Trần Thị Mai',
+    name: 'Dương Thị Thúy',
     role: 'to_truong_2',
     roleTitle: 'Tổ trưởng Tổ 2',
     groupNumber: 2,
@@ -46,7 +46,7 @@ export const USER_ACCOUNTS: UserAccount[] = [
   },
   {
     id: 'usr_tt3',
-    name: 'Lê Hoàng Nam',
+    name: 'Nguyễn Triệu Huy',
     role: 'to_truong_3',
     roleTitle: 'Tổ trưởng Tổ 3',
     groupNumber: 3,
@@ -56,7 +56,7 @@ export const USER_ACCOUNTS: UserAccount[] = [
   },
   {
     id: 'usr_tt4',
-    name: 'Phạm Quỳnh Chi',
+    name: 'Phạm Thu Hương',
     role: 'to_truong_4',
     roleTitle: 'Tổ trưởng Tổ 4',
     groupNumber: 4,
@@ -325,10 +325,10 @@ export const INITIAL_QUESTIONS: QuizQuestion[] = [
 export const INITIAL_ACCOUNTS = [
   { id: 'acc_gvcn', username: 'gvcn', passcode: '123456', role: 'gvcn' as const, name: 'Cô Ninh Thị Thu Hà' },
   { id: 'acc_lt', username: 'loptruong', passcode: '123456', role: 'lop_truong' as const, name: 'Lớp trưởng 12A10' },
-  { id: 'acc_tt1', username: 'totruong1', passcode: '123456', role: 'to_truong_1' as const, name: 'Tổ trưởng Tổ 1' },
-  { id: 'acc_tt2', username: 'totruong2', passcode: '123456', role: 'to_truong_2' as const, name: 'Tổ trưởng Tổ 2' },
-  { id: 'acc_tt3', username: 'totruong3', passcode: '123456', role: 'to_truong_3' as const, name: 'Tổ trưởng Tổ 3' },
-  { id: 'acc_tt4', username: 'totruong4', passcode: '123456', role: 'to_truong_4' as const, name: 'Tổ trưởng Tổ 4' },
+  { id: 'acc_tt1', username: 'totruong1', passcode: '123456', role: 'to_truong_1' as const, name: 'Hoàng Gia Huy' },
+  { id: 'acc_tt2', username: 'totruong2', passcode: '123456', role: 'to_truong_2' as const, name: 'Dương Thị Thúy' },
+  { id: 'acc_tt3', username: 'totruong3', passcode: '123456', role: 'to_truong_3' as const, name: 'Nguyễn Triệu Huy' },
+  { id: 'acc_tt4', username: 'totruong4', passcode: '123456', role: 'to_truong_4' as const, name: 'Phạm Thu Hương' },
 ];
 
 export const INITIAL_APP_DATA: FullAppData = {
@@ -396,8 +396,16 @@ export const INITIAL_APP_DATA: FullAppData = {
     soundEnabled: true,
     autoSave: true,
     seatingChart: {
+      "1": [
+        { deskNumber: 1, leftStudent: '', rightStudent: '' },
+        { deskNumber: 2, leftStudent: '', rightStudent: '' },
+        { deskNumber: 3, leftStudent: '', rightStudent: '' },
+        { deskNumber: 4, leftStudent: '', rightStudent: '' },
+        { deskNumber: 5, leftStudent: '', rightStudent: '' },
+        { deskNumber: 6, leftStudent: '', rightStudent: '' }
+      ],
       "2": [
-        { deskNumber: 1, leftStudent: 'Nguyệt Ánh', rightStudent: 'Dương Thúy – Bùi Linh' },
+        { deskNumber: 1, leftStudent: 'Ánh', rightStudent: 'Thúy, Bùi Linh' },
         { deskNumber: 2, leftStudent: 'Kiệt', rightStudent: 'Phạm Dũng' },
         { deskNumber: 3, leftStudent: 'Hoài', rightStudent: 'Toàn' },
         { deskNumber: 4, leftStudent: 'Dịu', rightStudent: 'Phương Linh' },
@@ -405,12 +413,20 @@ export const INITIAL_APP_DATA: FullAppData = {
         { deskNumber: 6, leftStudent: 'Bằng', rightStudent: 'Phi Vũ' }
       ],
       "3": [
-        { deskNumber: 1, leftStudent: 'Trần thị thu Huyền', rightStudent: 'Mạc Thành Duy' },
-        { deskNumber: 2, leftStudent: 'Nông Thị Thu Hậu', rightStudent: 'Lương Trí Vỹ' },
-        { deskNumber: 3, leftStudent: 'Nguyễn Thu Uyên', rightStudent: 'Lê Quang Minh' },
-        { deskNumber: 4, leftStudent: 'Mã Quang Hà', rightStudent: 'Đào Đức Bình' },
-        { deskNumber: 5, leftStudent: 'Hoàng Hải Đăng', rightStudent: 'Nguyễn Khánh Linh' },
-        { deskNumber: 6, leftStudent: 'Nguyễn Triệu Huy', rightStudent: 'Vũ Thành Long' }
+        { deskNumber: 1, leftStudent: 'Huyền', rightStudent: 'Duy' },
+        { deskNumber: 2, leftStudent: 'Hậu', rightStudent: 'Vỹ' },
+        { deskNumber: 3, leftStudent: 'Uyên', rightStudent: 'Lê Minh' },
+        { deskNumber: 4, leftStudent: 'Mã Hà', rightStudent: 'Bình' },
+        { deskNumber: 5, leftStudent: 'Đăng', rightStudent: 'Khánh Linh' },
+        { deskNumber: 6, leftStudent: 'Triệu Huy', rightStudent: 'Long' }
+      ],
+      "4": [
+        { deskNumber: 1, leftStudent: '', rightStudent: '' },
+        { deskNumber: 2, leftStudent: '', rightStudent: '' },
+        { deskNumber: 3, leftStudent: '', rightStudent: '' },
+        { deskNumber: 4, leftStudent: '', rightStudent: '' },
+        { deskNumber: 5, leftStudent: '', rightStudent: '' },
+        { deskNumber: 6, leftStudent: '', rightStudent: '' }
       ]
     }
   },
