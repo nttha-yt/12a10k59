@@ -1,0 +1,6 @@
+{
+  "name": "Quản Lý Thi Đua 12A10 - THPT Yên Thế",
+  "description": "Hệ thống quản lý thi đua, nề nếp, xếp hạng và phân công trực nhật thông minh lớp 12A10 THPT Yên Thế (2026-2027) tích hợp Gemini AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
