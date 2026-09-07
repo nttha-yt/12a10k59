@@ -453,55 +453,92 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
                     </div>
                   </div>
 
-                  {/* 6 Desks Container */}
+                  {/* Desks Container */}
                   <div className="space-y-2">
-                    {isEditingSeating ? (
-                      // Edit mode: 3 horizontal columns (Compact Desk + Left Input + Right Input)
-                      [1, 2, 3, 4, 5, 6].map(deskIndex => {
-                        const existingDesk = groupDesks.find(d => d.deskNumber === deskIndex) || { deskNumber: deskIndex, leftStudent: '', rightStudent: '' };
+                    {(() => {
+                      const maxDeskInGroup = groupDesks.length > 0 
+                        ? Math.max(...groupDesks.map(d => d.deskNumber), 6) 
+                        : (groupNum === 2 ? 7 : 6);
+                      const totalDesks = Math.max(groupNum === 2 ? 7 : 6, maxDeskInGroup);
+                      const deskIndices = Array.from({ length: totalDesks }, (_, i) => i + 1);
+
+                      if (isEditingSeating) {
                         return (
-                          <div key={deskIndex} className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1.5 rounded-xl shadow-2xs border border-slate-200 dark:border-slate-700">
-                            <span className="w-13 shrink-0 text-center py-1.5 rounded-lg text-[11px] font-black bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                              Bàn {deskIndex}
-                            </span>
-                            <div className="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
-                              <input 
-                                type="text" 
-                                placeholder="HS Trái..."
-                                value={existingDesk.leftStudent}
-                                onChange={(e) => {
+                          <>
+                            {deskIndices.map(deskIndex => {
+                              const existingDesk = groupDesks.find(d => d.deskNumber === deskIndex) || { deskNumber: deskIndex, leftStudent: '', rightStudent: '' };
+                              return (
+                                <div key={deskIndex} className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1.5 rounded-xl shadow-2xs border border-slate-200 dark:border-slate-700">
+                                  <span className="w-13 shrink-0 text-center py-1.5 rounded-lg text-[11px] font-black bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                                    Bàn {deskIndex}
+                                  </span>
+                                  <div className="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
+                                    <input 
+                                      type="text" 
+                                      placeholder="HS Trái..."
+                                      value={existingDesk.leftStudent}
+                                      onChange={(e) => {
+                                        const newDesks = [...groupDesks];
+                                        const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
+                                        if (idx >= 0) newDesks[idx].leftStudent = e.target.value;
+                                        else newDesks.push({ deskNumber: deskIndex, leftStudent: e.target.value, rightStudent: existingDesk.rightStudent });
+                                        setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
+                                      }}
+                                      className="w-full text-xs font-semibold p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                    />
+                                    <input 
+                                      type="text" 
+                                      placeholder="HS Phải..."
+                                      value={existingDesk.rightStudent}
+                                      onChange={(e) => {
+                                        const newDesks = [...groupDesks];
+                                        const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
+                                        if (idx >= 0) newDesks[idx].rightStudent = e.target.value;
+                                        else newDesks.push({ deskNumber: deskIndex, leftStudent: existingDesk.leftStudent, rightStudent: e.target.value });
+                                        setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
+                                      }}
+                                      className="w-full text-xs font-semibold p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                    />
+                                  </div>
+                                </div>
+                              );
+                            })}
+                            <div className="flex items-center justify-end gap-1.5 pt-1">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const nextDeskNum = totalDesks + 1;
                                   const newDesks = [...groupDesks];
-                                  const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
-                                  if (idx >= 0) newDesks[idx].leftStudent = e.target.value;
-                                  else newDesks.push({ deskNumber: deskIndex, leftStudent: e.target.value, rightStudent: existingDesk.rightStudent });
+                                  if (!newDesks.some(d => d.deskNumber === nextDeskNum)) {
+                                    newDesks.push({ deskNumber: nextDeskNum, leftStudent: '', rightStudent: '' });
+                                  }
                                   setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
                                 }}
-                                className="w-full text-xs font-semibold p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                              />
-                              <input 
-                                type="text" 
-                                placeholder="HS Phải..."
-                                value={existingDesk.rightStudent}
-                                onChange={(e) => {
-                                  const newDesks = [...groupDesks];
-                                  const idx = newDesks.findIndex(d => d.deskNumber === deskIndex);
-                                  if (idx >= 0) newDesks[idx].rightStudent = e.target.value;
-                                  else newDesks.push({ deskNumber: deskIndex, leftStudent: existingDesk.leftStudent, rightStudent: e.target.value });
-                                  setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
-                                }}
-                                className="w-full text-xs font-semibold p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                              />
+                                className="px-2.5 py-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/80 rounded-lg border border-blue-200 dark:border-blue-800 transition-colors cursor-pointer"
+                              >
+                                + Thêm bàn {totalDesks + 1}
+                              </button>
+                              {totalDesks > (groupNum === 2 ? 7 : 6) && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newDesks = groupDesks.filter(d => d.deskNumber !== totalDesks);
+                                    setSeatingChartState({ ...seatingChartState, [String(groupNum)]: newDesks });
+                                  }}
+                                  className="px-2.5 py-1 text-[11px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 dark:hover:bg-rose-900/80 rounded-lg border border-rose-200 dark:border-rose-800 transition-colors cursor-pointer"
+                                >
+                                  - Bớt bàn {totalDesks}
+                                </button>
+                              )}
                             </div>
-                          </div>
+                          </>
                         );
-                      })
-                    ) : (
-                      // Display mode: always show 6 desks consistently
-                      [1, 2, 3, 4, 5, 6].map(deskIndex => {
+                      }
+
+                      return deskIndices.map(deskIndex => {
                         const desk = groupDesks.find(d => d.deskNumber === deskIndex);
                         const hasLeft = Boolean(desk?.leftStudent);
                         const hasRight = Boolean(desk?.rightStudent);
-                        const hasAny = hasLeft || hasRight;
 
                         return (
                           <div 
@@ -551,8 +588,8 @@ export const PenaltyDutyScheduler: React.FC<PenaltyDutySchedulerProps> = ({
                             </div>
                           </div>
                         );
-                      })
-                    )}
+                      });
+                    })()}
                   </div>
                 </div>
               </div>

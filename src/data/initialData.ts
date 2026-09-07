@@ -410,7 +410,8 @@ export const INITIAL_APP_DATA: FullAppData = {
         { deskNumber: 3, leftStudent: 'Hoài', rightStudent: 'Toàn' },
         { deskNumber: 4, leftStudent: 'Dịu', rightStudent: 'Phương Linh' },
         { deskNumber: 5, leftStudent: 'Bình Minh', rightStudent: 'Hoàng Vũ' },
-        { deskNumber: 6, leftStudent: 'Bằng', rightStudent: 'Phi Vũ' }
+        { deskNumber: 6, leftStudent: 'Bằng', rightStudent: 'Phi Vũ' },
+        { deskNumber: 7, leftStudent: '', rightStudent: '' }
       ],
       "3": [
         { deskNumber: 1, leftStudent: 'Huyền', rightStudent: 'Duy' },

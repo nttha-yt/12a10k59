@@ -107,15 +107,16 @@ export function App() {
     }
   }, [isDataLoaded, data.rules?.length]);
 
-  // Migrate Seating Chart (Auto-sync with updated Tổ 1, 2, 3, 4 layout)
+  // Migrate Seating Chart (Auto-sync with updated Tổ 1, 2, 3, 4 layout & Bàn 7 ở Tổ 2)
   useEffect(() => {
     if (isDataLoaded) {
       const currentSeating = data.settings.seatingChart || {};
-      const needsUpdate = !currentSeating["1"] || !currentSeating["4"] ||
+      const hasGroup2Desk7 = currentSeating["2"]?.some(d => d.deskNumber === 7);
+      const needsFullReset = !currentSeating["1"] || !currentSeating["4"] ||
         currentSeating["3"]?.some(d => d.leftStudent === 'Trần thị thu Huyền') ||
         currentSeating["2"]?.some(d => d.leftStudent === 'Nguyệt Ánh');
       
-      if (needsUpdate) {
+      if (needsFullReset) {
         setData(prev => ({
           ...prev,
           settings: {
@@ -123,6 +124,25 @@ export function App() {
             seatingChart: INITIAL_APP_DATA.settings.seatingChart
           }
         }));
+      } else if (!hasGroup2Desk7 && currentSeating["2"]) {
+        // Automatically append Bàn 7 to Tổ 2 without wiping other custom edits
+        setData(prev => {
+          const prevSeating = prev.settings.seatingChart || {};
+          const group2Desks = prevSeating["2"] ? [...prevSeating["2"]] : [];
+          if (!group2Desks.some(d => d.deskNumber === 7)) {
+            group2Desks.push({ deskNumber: 7, leftStudent: '', rightStudent: '' });
+          }
+          return {
+            ...prev,
+            settings: {
+              ...prev.settings,
+              seatingChart: {
+                ...prevSeating,
+                "2": group2Desks
+              }
+            }
+          };
+        });
       }
     }
   }, [isDataLoaded]);
